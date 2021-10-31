@@ -1,4 +1,4 @@
-package base.company;
+package base.simplebd;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
