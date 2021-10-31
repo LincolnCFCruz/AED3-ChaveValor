@@ -24,7 +24,7 @@ public class Main {
             switch (option) {
                 case 1: //Create
                     try {
-                        File file = new File("fileName.txt");
+                        File file = new File("simpledb.db");
 
                         if (!file.exists()) {
                             file.createNewFile();
@@ -52,7 +52,7 @@ public class Main {
                 case 2: //Read
                     try {
 
-                        br = new BufferedReader(new FileReader("fileName.txt"));
+                        br = new BufferedReader(new FileReader("simpledb.db"));
                         String line;
 
                         while ((line = br.readLine()) != null) {
@@ -70,7 +70,7 @@ public class Main {
                     }
                     break;
                 case 3: //Update
-                    File fileToBeModified = new File("fileName.txt");
+                    File fileToBeModified = new File("simpledb.db");
                     String oldContent = "";
                     BufferedReader reader = null;
                     FileWriter writer = null;
