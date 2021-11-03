@@ -42,7 +42,7 @@ public class Main {
             bw.close();
             fwArquivo.close();
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
