@@ -12,16 +12,16 @@ public class Main {
                 file.createNewFile();
             }
 
-            Scanner sc = new Scanner(System.in);
+            Scanner sc1 = new Scanner(System.in);
             PrintWriter pw = new PrintWriter(file);
             int loop;
             String conteudo;
 
             System.out.println("Numero de linhas.");
-            loop = sc.nextInt();
+            loop = sc1.nextInt();
             for (int i = 0; i<loop; i++) {
                 System.out.println("linha: ");
-                conteudo = sc.next();
+                conteudo = sc1.next();
                 pw.print(conteudo);
                 pw.print("\n");
             }
@@ -47,6 +47,7 @@ public class Main {
 
             Scanner sc2 = new Scanner(System.in);
             BufferedWriter bw = new BufferedWriter(fwArquivo);
+            System.out.println("Add line: ");
             String registro = sc2.nextLine();
 
             bw.write(registro + "\n");
@@ -83,16 +84,16 @@ public class Main {
     }
 
     public static void update (){
-        Scanner sc1 = new Scanner(System.in);
+        Scanner sc3 = new Scanner(System.in);
         File fileToBeModified = new File("simpledb.db");
         String oldContent = "";
         BufferedReader reader = null;
         FileWriter writer = null;
 
         System.out.println("Linha a ser alterada:");
-        String oldString = sc1.next();
+        String oldString = sc3.next();
         System.out.println("Nova linha: ");
-        String newString = sc1.next();
+        String newString = sc3.next();
 
         try{
             reader = new BufferedReader(new FileReader(fileToBeModified));
@@ -114,6 +115,31 @@ public class Main {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static void delete () {
+        try {
+            File input_file = new File("simpledb.db");
+            File temp_file = new File("simpledbTemp.db");
+            BufferedReader my_reader = new BufferedReader(new FileReader(input_file));
+            BufferedWriter my_writer = new BufferedWriter(new FileWriter(temp_file));
+            Scanner sc4 = new Scanner(System.in);
+            System.out.println("Delete: ");
+            String lineToRemove = sc4.nextLine();
+            String current_line;
+            while((current_line = my_reader.readLine()) != null) {
+                String trimmedLine = current_line.trim();
+                if(trimmedLine.equals(lineToRemove)) continue;
+                my_writer.write(current_line + System.getProperty("line.separator"));
+            }
+            my_writer.close();
+            my_reader.close();
+            input_file.delete();
+            temp_file.renameTo(input_file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void main(String[] args) {
@@ -146,7 +172,7 @@ public class Main {
                     update();
                     break;
                 case 5: //Delete
-                    System.out.println("Delete");
+                    delete();
                     break;
                 case 0:
                     flag = false;
