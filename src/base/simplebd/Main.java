@@ -10,23 +10,8 @@ public class Main {
 
             if (!file.exists()) {
                 file.createNewFile();
-            }
-
-            Scanner sc1 = new Scanner(System.in);
-            PrintWriter pw = new PrintWriter(file);
-            int loop;
-            String conteudo;
-
-            System.out.println("Numero de linhas.");
-            loop = sc1.nextInt();
-            for (int i = 0; i<loop; i++) {
-                System.out.println("linha: ");
-                conteudo = sc1.next();
-                pw.print(conteudo);
-                pw.print("\n");
-            }
-            pw.close();
-            System.out.println("Done");
+                System.out.println("Done");
+            } else { System.out.println("Arquivo ja existe."); }
 
         } catch (IOException e) {
             e.printStackTrace();
