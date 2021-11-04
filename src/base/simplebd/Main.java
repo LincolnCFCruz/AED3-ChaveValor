@@ -32,16 +32,64 @@ public class Main {
 
             Scanner sc2 = new Scanner(System.in);
             BufferedWriter bw = new BufferedWriter(fwArquivo);
-            System.out.println("Add line: ");
-            String registro = sc2.nextLine();
 
-            bw.write(registro + "\n");
+            System.out.println("Index: ");
+            int index = sc2.nextInt();
+
+            System.out.println("Type: ");
+            int type = sc2.nextInt();
+
+            bw.write(index + ";");
+            bw.write(type + ";");
+
+            switch (type){
+                case 1: //book
+                    System.out.println("Name: ");
+                    String bookName = sc2.next();
+
+                    System.out.println("Autor: ");
+                    String bookAutor = sc2.next();
+
+                    System.out.println("Data: ");
+                    int bookData = sc2.nextInt();
+
+                    bw.write(bookName + ";");
+                    bw.write(bookAutor + ";");
+                    bw.write(bookData + "\n");
+                    break;
+                case 2: //album
+                    System.out.println("Name: ");
+                    String albumName = sc2.next();
+
+                    System.out.println("Autor: ");
+                    String albumAutor = sc2.next();
+
+                    bw.write(albumName + ";");
+                    bw.write(albumAutor + "\n");
+                    break;
+                case 3: //track
+                    System.out.println("Track number");
+                    String trackNumber = sc2.next();
+
+                    bw.write(trackNumber + "\n");
+                    break;
+                case 4: //movie
+                    System.out.println("Movie name: ");
+                    String movieName = sc2.next();
+                    System.out.println("Movie genre: ");
+                    String movieGenre = sc2.next();
+
+                    bw.write(movieName + ";");
+                    bw.write(movieGenre + "\n");
+                    break;
+                default:
+                    System.out.println("Opção invalida");
+            }
 
             System.out.println("Done");
 
             bw.close();
             fwArquivo.close();
-
         } catch (IOException e) {
             e.printStackTrace();
         }
