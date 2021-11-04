@@ -34,24 +34,28 @@ public class Main {
             BufferedWriter bw = new BufferedWriter(fwArquivo);
 
             System.out.println("Index: ");
-            int index = sc2.nextInt();
+            int index = Integer.parseInt(sc2.nextLine());
+            bw.write(index + ";");
 
             System.out.println("Type: ");
-            int type = sc2.nextInt();
-
-            bw.write(index + ";");
+            int type = Integer.parseInt(sc2.nextLine());
             bw.write(type + ";");
+
 
             switch (type){
                 case 1: //book
                     System.out.println("Name: ");
-                    String bookName = sc2.next();
+                    String bookName;
+                    bookName = sc2.nextLine();
 
                     System.out.println("Autor: ");
-                    String bookAutor = sc2.next();
+                    String bookAutor;
+                    bookAutor = sc2.nextLine();
+
 
                     System.out.println("Data: ");
-                    int bookData = sc2.nextInt();
+                    int data = Integer.parseInt(sc2.nextLine());
+                    String bookData = String.valueOf(data);
 
                     bw.write(bookName + ";");
                     bw.write(bookAutor + ";");
@@ -59,25 +63,27 @@ public class Main {
                     break;
                 case 2: //album
                     System.out.println("Name: ");
-                    String albumName = sc2.next();
+                    String albumName;
+                    albumName = sc2.nextLine();
 
                     System.out.println("Autor: ");
-                    String albumAutor = sc2.next();
+                    String albumAutor;
+                    albumAutor = sc2.nextLine();
 
                     bw.write(albumName + ";");
                     bw.write(albumAutor + "\n");
                     break;
                 case 3: //track
                     System.out.println("Track number");
-                    String trackNumber = sc2.next();
+                    String trackNumber = sc2.nextLine();
 
                     bw.write(trackNumber + "\n");
                     break;
                 case 4: //movie
                     System.out.println("Movie name: ");
-                    String movieName = sc2.next();
+                    String movieName = sc2.nextLine();
                     System.out.println("Movie genre: ");
-                    String movieGenre = sc2.next();
+                    String movieGenre = sc2.nextLine();
 
                     bw.write(movieName + ";");
                     bw.write(movieGenre + "\n");
@@ -156,17 +162,24 @@ public class Main {
             File temp_file = new File("simpledbTemp.db");
             BufferedReader my_reader = new BufferedReader(new FileReader(input_file));
             BufferedWriter my_writer = new BufferedWriter(new FileWriter(temp_file));
+
             Scanner sc4 = new Scanner(System.in);
             System.out.println("Delete: ");
-            String lineToRemove = sc4.nextLine();
+            int value = sc4.nextInt();
+            String lineToRemove = String.valueOf(value);
             String current_line;
+
             while((current_line = my_reader.readLine()) != null) {
                 String trimmedLine = current_line.trim();
-                if(trimmedLine.equals(lineToRemove)) continue;
+                String key = "";
+                key = trimmedLine.substring(0,1);
+                if(key.equals(lineToRemove)) continue;
                 my_writer.write(current_line + System.getProperty("line.separator"));
             }
+
             my_writer.close();
             my_reader.close();
+
             input_file.delete();
             temp_file.renameTo(input_file);
         } catch (IOException e) {
