@@ -5,7 +5,6 @@
 
 ## Participantes
  - Lincoln Corrêa Figueiredo Cruz | [LincolnCFCruz](https://github.com/LincolnCFCruz)
- - Mariana Eliza Alves Costa | [xMarih](https://github.com/xMarih)
 
 ## Referência
 [Canvas PUC Minas](https://pucminas.instructure.com/courses/82665/files/4326007?module_item_id=1771382)
