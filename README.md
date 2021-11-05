@@ -1,11 +1,10 @@
 # AED3-Banco-de-Dados-Chave-Valor
 
 - [Desenvolvedores](https://github.com//LincolnCFCruz/BD-ChaveValor#desenvolvedores)
-- [Enunciado](https://github.com//LincolnCFCruz/BD-ChaveValorr#enunciado)
-- [Definição do problema](https://github.com/LincolnCFCruz/BD-ChaveValor#defini%C3%A7%C3%A3o-do-problema)
+- [Introdução](https://github.com/LincolnCFCruz/BD-ChaveValor#introdu%C3%A7%C3%A3o)
 - [Estrutura Base](https://github.com//LincolnCFCruz/BD-ChaveValor#estrutura-base)
 - [Build](https://github.com/LincolnCFCruz/BD-ChaveValorr#build)
-- [CMD](https://github.com/LincolnCFCruz/BD-ChaveValor#cmd)
+- [CLI](https://github.com/LincolnCFCruz/BD-ChaveValor#cli)
 
 ---
 
@@ -17,21 +16,20 @@
 
 ---
 
-## Professor:
-- Prof. Pedro Henrique Penna
+## Introdução:
+Código desenvolvido como projeto para a disciplina Arlgoritmos e Estrutura de Dados III, ministrada pelo professor Prof. Pedro Henrique Penna ([ppenna](https://github.com/ppenna))
 
 ---
 
-## Definição do Problema 
-
----
 
 ## Estrutura Base
 
 ---
 
+## Build
 
-## CMD
+
+## CLI
 ``simpledb [cmd]``
 
 -  ``--insert=<sort-key,value>``
