@@ -3,7 +3,7 @@
 - [Desenvolvedores](https://github.com//LincolnCFCruz/BD-ChaveValor#desenvolvedores)
 - [Introdução](https://github.com/LincolnCFCruz/BD-ChaveValor#introdu%C3%A7%C3%A3o)
 - [Estrutura Base](https://github.com//LincolnCFCruz/BD-ChaveValor#estrutura-base)
-- [Build](https://github.com/LincolnCFCruz/BD-ChaveValorr#build)
+- [Build](https://github.com/LincolnCFCruz/BD-ChaveValor#build)
 - [CLI](https://github.com/LincolnCFCruz/BD-ChaveValor#cli)
 
 ## Desenvolvedores:
