@@ -13,7 +13,7 @@
 - Lincoln Corrêa Figueiredo Cruz | [LincolnCFCruz](https://github.com/LincolnCFCruz)
 
 ## Introdução:
-Código desenvolvido como projeto para a disciplina Arlgoritmos e Estrutura de Dados III, ministrada pelo professor Prof. Pedro Henrique Penna ([ppenna](https://github.com/ppenna))
+Código desenvolvido como projeto para a disciplina Arlgoritmos e Estrutura de Dados III, ministrada pelo professor Prof. Pedro Henrique Penna ([ppenna](https://github.com/ppenna)).
 
 ## Estrutura Base
 
