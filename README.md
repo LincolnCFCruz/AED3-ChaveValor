@@ -6,25 +6,16 @@
 - [Build](https://github.com/LincolnCFCruz/BD-ChaveValorr#build)
 - [CLI](https://github.com/LincolnCFCruz/BD-ChaveValor#cli)
 
----
-
 ## Desenvolvedores:
 - Gabriel França Oliveira | [@GabrielFOliveira](https://github.com/GabrielFOliveira)
 - Milleny Teixeira de Souza | [@millenyteixeira](https://github.com/millenyteixeira)
 - Rafael Felipe Silva Pereira | [@rfspereir](https://github.com/rfspereir)
 - Lincoln Corrêa Figueiredo Cruz | [LincolnCFCruz](https://github.com/LincolnCFCruz)
 
----
-
 ## Introdução:
 Código desenvolvido como projeto para a disciplina Arlgoritmos e Estrutura de Dados III, ministrada pelo professor Prof. Pedro Henrique Penna ([ppenna](https://github.com/ppenna))
 
----
-
-
 ## Estrutura Base
-
----
 
 ## Build
 
