@@ -17,7 +17,8 @@
 
 ---
 
-## Enunciado:
+## Professor:
+- Prof. Pedro Henrique Penna
 
 ---
 
@@ -29,9 +30,6 @@
 
 ---
 
-## Build
-
----
 
 ## CMD
 ``simpledb [cmd]``
