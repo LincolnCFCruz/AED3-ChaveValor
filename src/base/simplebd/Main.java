@@ -32,65 +32,34 @@ public class Main {
 
             Scanner sc2 = new Scanner(System.in);
             BufferedWriter bw = new BufferedWriter(fwArquivo);
+            BufferedReader br = new BufferedReader(new FileReader("simpledb.db"));
 
-            System.out.println("Index: ");
-            int index = Integer.parseInt(sc2.nextLine());
+            String line;
+            int index = 1;
+
+            while ((line = br.readLine()) != null){
+                String trimmed = line;
+                String key = "";
+                key = trimmed.substring(0,1);
+
+                if (key != null) {
+                    index = Integer.parseInt(key);
+                    index++;
+                } else if (key == null){
+                    index = 1;
+                }
+            }
+
             bw.write(index + ";");
 
             System.out.println("Type: ");
             int type = Integer.parseInt(sc2.nextLine());
             bw.write(type + ";");
 
-
-            switch (type){
-                case 1: //book
-                    System.out.println("Name: ");
-                    String bookName;
-                    bookName = sc2.nextLine();
-
-                    System.out.println("Autor: ");
-                    String bookAutor;
-                    bookAutor = sc2.nextLine();
-
-
-                    System.out.println("Data: ");
-                    int data = Integer.parseInt(sc2.nextLine());
-                    String bookData = String.valueOf(data);
-
-                    bw.write(bookName + ";");
-                    bw.write(bookAutor + ";");
-                    bw.write(bookData + "\n");
-                    break;
-                case 2: //album
-                    System.out.println("Name: ");
-                    String albumName;
-                    albumName = sc2.nextLine();
-
-                    System.out.println("Autor: ");
-                    String albumAutor;
-                    albumAutor = sc2.nextLine();
-
-                    bw.write(albumName + ";");
-                    bw.write(albumAutor + "\n");
-                    break;
-                case 3: //track
-                    System.out.println("Track number");
-                    String trackNumber = sc2.nextLine();
-
-                    bw.write(trackNumber + "\n");
-                    break;
-                case 4: //movie
-                    System.out.println("Movie name: ");
-                    String movieName = sc2.nextLine();
-                    System.out.println("Movie genre: ");
-                    String movieGenre = sc2.nextLine();
-
-                    bw.write(movieName + ";");
-                    bw.write(movieGenre + "\n");
-                    break;
-                default:
-                    System.out.println("Opção invalida");
-            }
+            System.out.println("Value: ");
+            String value;
+            value = sc2.nextLine();
+            bw.write(value + "\n");
 
             System.out.println("Done");
 
@@ -122,35 +91,49 @@ public class Main {
         }
     }
 
-    public static void update (){
-        Scanner sc3 = new Scanner(System.in);
-        File fileToBeModified = new File("simpledb.db");
-        String oldContent = "";
-        BufferedReader reader = null;
+    public static void update () {
+        BufferedReader br = null;
         FileWriter writer = null;
+        try {
+            Scanner sc3 = new Scanner(System.in);
+            br = new BufferedReader(new FileReader("simpledb.db"));
+            String line;
+            String newString = "";
+            String oldString = "";
+            String oldContent = "";
+            String updateLine = sc3.nextLine();
 
-        System.out.println("Linha a ser alterada:");
-        String oldString = sc3.next();
-        System.out.println("Nova linha: ");
-        String newString = sc3.next();
-
-        try{
-            reader = new BufferedReader(new FileReader(fileToBeModified));
-            String line = reader.readLine();
-            while (line != null) {
+            while ((line = br.readLine()) != null) {
                 oldContent = oldContent + line + System.lineSeparator();
-                line = reader.readLine();
+
+                String trimmed = line;
+                String key = "";
+                key = trimmed.substring(0,1);
+                if (key.equals(updateLine)){
+                    oldString = line;
+
+                    System.out.println("TypeUpdate: ");
+                    String typeUpdate;
+                    typeUpdate = sc3.nextLine();
+
+                    System.out.println("ValueUpdate: ");
+                    String valueUpdate;
+                    valueUpdate = sc3.nextLine();
+
+                    newString = key + ";" + typeUpdate + ";" + valueUpdate;
+                }
+                String newContent = oldContent.replaceAll(oldString,newString);
+                writer = new FileWriter(("simpledb.db"));
+                writer.write(newContent);
             }
-            String newContent = oldContent.replaceAll(oldString,newString);
-            writer = new FileWriter((fileToBeModified));
-            writer.write(newContent);
+
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            try{
-                reader.close();
+            try {
+                br.close();
                 writer.close();
-            } catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
