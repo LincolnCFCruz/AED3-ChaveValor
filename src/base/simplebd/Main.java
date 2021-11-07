@@ -63,6 +63,7 @@ public class Main {
 
             System.out.println("Done");
 
+            br.close();
             bw.close();
             fwArquivo.close();
         } catch (IOException e) {
@@ -140,13 +141,21 @@ public class Main {
     }
 
     public static void delete () {
+        BufferedReader my_reader = null;
+        FileWriter my_writer = null;
+
+        String filePath = "simpledb.db";
+        String fileTemp = "simpledbTemp.db";
+
         try {
-            File input_file = new File("simpledb.db");
-            File temp_file = new File("simpledbTemp.db");
-            BufferedReader my_reader = new BufferedReader(new FileReader(input_file));
-            BufferedWriter my_writer = new BufferedWriter(new FileWriter(temp_file));
+            File input_file = new File(filePath);
+            File temp_file = new File(fileTemp);
+
+            my_reader = new BufferedReader(new FileReader(input_file));
+            my_writer = new FileWriter(temp_file);
 
             Scanner sc4 = new Scanner(System.in);
+
             System.out.println("Delete: ");
             int value = sc4.nextInt();
             String lineToRemove = String.valueOf(value);
@@ -163,12 +172,13 @@ public class Main {
             my_writer.close();
             my_reader.close();
 
+            System.out.println("Done");
             input_file.delete();
             temp_file.renameTo(input_file);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public static void main(String[] args) {
