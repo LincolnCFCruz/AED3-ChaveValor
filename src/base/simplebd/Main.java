@@ -18,7 +18,7 @@ public class Main {
         }
     }
 
-    public static void add () {
+    public static void insert () {
         File fArquivo = null;
         try {
             fArquivo = new File("simpledb.db");
@@ -71,76 +71,7 @@ public class Main {
         }
     }
 
-    public static void read () {
-        BufferedReader br = null;
-        try {
-            br = new BufferedReader(new FileReader("simpledb.db"));
-            String line;
-
-            while ((line = br.readLine()) != null) {
-                System.out.println(line);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                br.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public static void update () {
-        BufferedReader br = null;
-        FileWriter writer = null;
-        try {
-            Scanner sc3 = new Scanner(System.in);
-            br = new BufferedReader(new FileReader("simpledb.db"));
-            String line;
-            String newString = "";
-            String oldString = "";
-            String oldContent = "";
-            String updateLine = sc3.nextLine();
-
-            while ((line = br.readLine()) != null) {
-                oldContent = oldContent + line + System.lineSeparator();
-
-                String trimmed = line;
-                String key = "";
-                key = trimmed.substring(0,1);
-                if (key.equals(updateLine)){
-                    oldString = line;
-
-                    System.out.println("TypeUpdate: ");
-                    String typeUpdate;
-                    typeUpdate = sc3.nextLine();
-
-                    System.out.println("ValueUpdate: ");
-                    String valueUpdate;
-                    valueUpdate = sc3.nextLine();
-
-                    newString = key + ";" + typeUpdate + ";" + valueUpdate;
-                }
-                String newContent = oldContent.replaceAll(oldString,newString);
-                writer = new FileWriter(("simpledb.db"));
-                writer.write(newContent);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                br.close();
-                writer.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public static void delete () {
+    public static void remove () {
         BufferedReader my_reader = null;
         FileWriter my_writer = null;
 
@@ -172,12 +103,114 @@ public class Main {
             my_writer.close();
             my_reader.close();
 
-            System.out.println("Done");
             input_file.delete();
             temp_file.renameTo(input_file);
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void search () {
+        BufferedReader br2 = null;
+
+        try {
+            br2 = new BufferedReader(new FileReader("simpledb.db"));
+            Scanner sc5 = new Scanner(System.in);
+
+            String current_line;
+
+            int value = sc5.nextInt();
+            String lineToRemove = String.valueOf(value);
+
+            while((current_line = br2.readLine()) != null) {
+                String trimmedLine = current_line.trim();
+                String key = "";
+                key = trimmedLine.substring(0,1);
+                if(key.equals(lineToRemove)) {
+                    System.out.println(trimmedLine);
+                }
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                br2.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void update () {
+        BufferedReader br = null;
+        FileWriter writer = null;
+
+        try {
+            Scanner sc3 = new Scanner(System.in);
+            br = new BufferedReader(new FileReader("simpledb.db"));
+            String line;
+            String newString = "";
+            String oldString = "";
+            String oldContent = "";
+            String updateLine = sc3.nextLine();
+
+            while ((line = br.readLine()) != null) {
+                oldContent = oldContent + line + System.lineSeparator();
+
+                String trimmed = line;
+                String key = "";
+                key = trimmed.substring(0,1);
+
+                if (key.equals(updateLine)){
+                    oldString = line;
+
+                    System.out.println("TypeUpdate: ");
+                    String typeUpdate;
+                    typeUpdate = sc3.nextLine();
+
+                    System.out.println("ValueUpdate: ");
+                    String valueUpdate;
+                    valueUpdate = sc3.nextLine();
+
+                    newString = key + ";" + typeUpdate + ";" + valueUpdate;
+                }
+
+                String newContent = oldContent.replaceAll(oldString,newString);
+                writer = new FileWriter(("simpledb.db"));
+                writer.write(newContent);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                br.close();
+                writer.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void read () {
+        BufferedReader br = null;
+        try {
+            br = new BufferedReader(new FileReader("simpledb.db"));
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                System.out.println(line);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                br.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -187,10 +220,11 @@ public class Main {
         Scanner entrada = new Scanner(System.in);
 
         System.out.println("Opcao 1: Create");
-        System.out.println("Opcao 2: Add");
-        System.out.println("Opcao 3: Read");
-        System.out.println("Opcao 4: Update");
-        System.out.println("Opcao 5: Delete");
+        System.out.println("Opcao 2: Insert");
+        System.out.println("Opcao 3: Remove");
+        System.out.println("Opcao 4: Search");
+        System.out.println("Opcao 5: Update");
+        System.out.println("Opcao 6: Read");
         System.out.println("Opcao 0: Exit");
 
         while (flag == true) {
@@ -201,17 +235,20 @@ public class Main {
                 case 1: //Create
                     create();
                     break;
-                case 2:
-                    add();
+                case 2: //Insert
+                    insert();
                     break;
-                case 3: //Read
-                    read();
+                case 3: //Remove
+                    remove();
                     break;
-                case 4: //Update
-                    update();
+                case 4: //Read
+                    search();
                     break;
                 case 5: //Delete
-                    delete();
+                    update();
+                    break;
+                case 6:
+                    read();
                     break;
                 case 0:
                     flag = false;
