@@ -20,9 +20,13 @@ public class Main {
 
     public static void insert () {
         File fArquivo = null;
+        FileWriter fwArquivo = null;
+        Scanner sc2 = null;
+        BufferedWriter bw = null;
+        BufferedReader br =  null;
+
         try {
             fArquivo = new File("simpledb.db");
-            FileWriter fwArquivo = null;
 
             if (fArquivo.exists() == true) {
                 fwArquivo = new FileWriter(fArquivo, true);
@@ -30,17 +34,16 @@ public class Main {
                 fwArquivo = new FileWriter(fArquivo);
             }
 
-            Scanner sc2 = new Scanner(System.in);
-            BufferedWriter bw = new BufferedWriter(fwArquivo);
-            BufferedReader br = new BufferedReader(new FileReader("simpledb.db"));
+            sc2 = new Scanner(System.in);
+            bw = new BufferedWriter(fwArquivo);
+            br = new BufferedReader(new FileReader("simpledb.db"));
 
             String line;
             int index = 1;
 
             while ((line = br.readLine()) != null){
-                String trimmed = line;
-                String key = "";
-                key = trimmed.substring(0,1);
+                String [] trimmed = line.split(";");
+                String key = trimmed [0];
 
                 if (key != null) {
                     index = Integer.parseInt(key);
@@ -49,40 +52,50 @@ public class Main {
                     index = 1;
                 }
             }
-
-            bw.write(index + ";");
+            System.out.println("Teste: "+ index);
 
             System.out.println("Type: ");
-            int type = Integer.parseInt(sc2.nextLine());
-            bw.write(type + ";");
+            int type;
+            type = Integer.parseInt(sc2.nextLine());
 
             System.out.println("Value: ");
             String value;
             value = sc2.nextLine();
-            bw.write(value + "\n");
+
+            bw.write("\n" + index + ";");
+            bw.write(type + ";");
+            bw.write(value);
 
             System.out.println("Done");
 
-            br.close();
-            bw.close();
-            fwArquivo.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                br.close();
+                bw.close();
+                fwArquivo.close();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
         }
     }
 
     public static void remove () {
-        BufferedReader my_reader = null;
+        BufferedReader countBR = null;
+        BufferedReader reader = null;
         FileWriter my_writer = null;
 
         String filePath = "simpledb.db";
         String fileTemp = "simpledbTemp.db";
 
         try {
-            File input_file = new File(filePath);
+            File index_file = new File(filePath);
+            File main_file = new File(filePath);
             File temp_file = new File(fileTemp);
 
-            my_reader = new BufferedReader(new FileReader(input_file));
+            countBR = new BufferedReader(new FileReader(index_file));
+            reader = new BufferedReader(new FileReader(main_file));
             my_writer = new FileWriter(temp_file);
 
             Scanner sc4 = new Scanner(System.in);
@@ -91,20 +104,38 @@ public class Main {
             int value = sc4.nextInt();
             String lineToRemove = String.valueOf(value);
             String current_line;
+            String line;
+            int count = 0;
 
-            while((current_line = my_reader.readLine()) != null) {
-                String trimmedLine = current_line.trim();
-                String key = "";
-                key = trimmedLine.substring(0,1);
-                if(key.equals(lineToRemove)) continue;
-                my_writer.write(current_line + System.getProperty("line.separator"));
+            while((line = countBR.readLine()) != null) {
+                count ++;
             }
 
-            my_writer.close();
-            my_reader.close();
+            count=count-1;
 
-            input_file.delete();
-            temp_file.renameTo(input_file);
+            while((current_line = reader.readLine()) != null){
+                String [] trimmed = current_line.split(";");
+                String key = trimmed [0];
+
+                if(!key.equals(lineToRemove)){
+                        if(count != 0){
+                            my_writer.write(current_line + "\n");
+                            count--;
+                            System.out.println("NOT LAST : " + current_line + " -- Count: " + count);
+                        }
+                        if(count == 0){
+                            my_writer.write(current_line);
+                            System.out.println("LAST : " + current_line + " -- Count: " + count);
+                        }
+                    }
+                }
+
+            my_writer.close();
+            countBR.close();
+            reader.close();
+
+            index_file.delete();
+            temp_file.renameTo(index_file);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -120,15 +151,16 @@ public class Main {
 
             String current_line;
 
+            System.out.println("Valor a ser procurado: ");
             int value = sc5.nextInt();
             String lineToRemove = String.valueOf(value);
 
             while((current_line = br2.readLine()) != null) {
-                String trimmedLine = current_line.trim();
-                String key = "";
-                key = trimmedLine.substring(0,1);
+                String [] trimmedLine = current_line.split(";");
+                String key = trimmedLine [0];
+
                 if(key.equals(lineToRemove)) {
-                    System.out.println(trimmedLine);
+                    System.out.println(current_line);
                 }
             }
 
@@ -159,9 +191,8 @@ public class Main {
             while ((line = br.readLine()) != null) {
                 oldContent = oldContent + line + System.lineSeparator();
 
-                String trimmed = line;
-                String key = "";
-                key = trimmed.substring(0,1);
+                String [] trimmed = line.split(";");
+                String key = trimmed [0];
 
                 if (key.equals(updateLine)){
                     oldString = line;
