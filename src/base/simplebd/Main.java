@@ -118,17 +118,17 @@ public class Main {
                 String key = trimmed [0];
 
                 if(!key.equals(lineToRemove)){
-                        if(count != 0){
-                            my_writer.write(current_line + "\n");
-                            count--;
-                            System.out.println("NOT LAST : " + current_line + " -- Count: " + count);
-                        }
-                        if(count == 0){
-                            my_writer.write(current_line);
-                            System.out.println("LAST : " + current_line + " -- Count: " + count);
-                        }
+                    if(count != 0){
+                        my_writer.write(current_line + "\n");
+                        count--;
+                        System.out.println("NOT LAST : " + current_line + " -- Count: " + count);
+                    }
+                    if(count == 0){
+                        my_writer.write(current_line);
+                        System.out.println("LAST : " + current_line + " -- Count: " + count);
                     }
                 }
+            }
 
             my_writer.close();
             countBR.close();
@@ -142,27 +142,22 @@ public class Main {
         }
     }
 
-    public static void search () {
-        BufferedReader br2 = null;
+    public static void search (Long pos) {
+        RandomAccessFile br2 = null;
+        String line;
+        String sortKey;
+        String value;
 
-        try {
-            br2 = new BufferedReader(new FileReader("simpledb.db"));
-            Scanner sc5 = new Scanner(System.in);
+        try{
+            br2 = new RandomAccessFile("simpledb.db", "rw");
 
-            String current_line;
+            br2.seek(pos);
+            line = br2.readLine();
+            String[] trimmed = line.split(";");
+            sortKey = trimmed[1];
+            value = trimmed[2];
 
-            System.out.println("Valor a ser procurado: ");
-            int value = sc5.nextInt();
-            String lineToRemove = String.valueOf(value);
-
-            while((current_line = br2.readLine()) != null) {
-                String [] trimmedLine = current_line.split(";");
-                String key = trimmedLine [0];
-
-                if(key.equals(lineToRemove)) {
-                    System.out.println(current_line);
-                }
-            }
+            System.out.println(sortKey +" - "+ value);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -175,37 +170,37 @@ public class Main {
         }
     }
 
-    public static void update () {
+    public static void update (String key, String newsortKey, String value) {
         BufferedReader br = null;
         FileWriter writer = null;
 
-        try {
-            Scanner sc3 = new Scanner(System.in);
+        try{
+           // Scanner sc3 = new Scanner(System.in);
             br = new BufferedReader(new FileReader("simpledb.db"));
             String line;
             String newString = "";
             String oldString = "";
             String oldContent = "";
-            String updateLine = sc3.nextLine();
+            String updateLine = key;
 
             while ((line = br.readLine()) != null) {
                 oldContent = oldContent + line + System.lineSeparator();
 
                 String [] trimmed = line.split(";");
-                String key = trimmed [0];
+                String keyA = trimmed [0];
 
-                if (key.equals(updateLine)){
+                if (keyA.equals(updateLine)){
                     oldString = line;
 
                     System.out.println("TypeUpdate: ");
-                    String typeUpdate;
-                    typeUpdate = sc3.nextLine();
+                    String sortKeyUpdate;
+                    sortKeyUpdate = newsortKey;
 
                     System.out.println("ValueUpdate: ");
                     String valueUpdate;
-                    valueUpdate = sc3.nextLine();
+                    valueUpdate = value;
 
-                    newString = key + ";" + typeUpdate + ";" + valueUpdate;
+                    newString = key + ";" + sortKeyUpdate + ";" + valueUpdate;
                 }
 
                 String newContent = oldContent.replaceAll(oldString,newString);
@@ -223,7 +218,6 @@ public class Main {
             }
         }
     }
-
     public static void read () {
         BufferedReader br = null;
         try {
@@ -249,6 +243,7 @@ public class Main {
         int option;
         boolean flag = true;
         Scanner entrada = new Scanner(System.in);
+        HashExtensivel hash = new HashExtensivel();
 
         System.out.println("Opcao 1: Create");
         System.out.println("Opcao 2: Insert");
@@ -273,16 +268,22 @@ public class Main {
                     remove();
                     break;
                 case 4: //Read
-                    search();
+                    search(hash.searchHash(2));
+                    //hash.searchHash(2);
                     break;
                 case 5: //Delete
-                    update();
+                   update("1","10","tudo bem aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                   //hash.updateHash(2, 8);
+                    System.out.println(hash.bucket);
                     break;
                 case 6:
                     read();
                     break;
                 case 0:
-                    flag = false;
+
+                   hash.insert();
+                   //ash.updateHash(1,2);
+                    //flag = false;
                     break;
                 default:
                     System.out.println("Utilize uma opcao valida.");

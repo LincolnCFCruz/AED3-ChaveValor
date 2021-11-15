@@ -6,74 +6,55 @@ import java.util.List;
 
 public class HashExtensivel<K,V> {
 
-        public class Pagina<K,V> {
-        int size;
-        int p = 0; // p = profundidade local
+    HashMap<Integer, Long> bucket = new HashMap<Integer, Long>();
 
-        HashMap<Integer, Integer> bucket = new HashMap<Integer, Integer>();
-
-        Pagina next; //pra apontar pro proximo bucket
-
-        boolean isfull() {
-            return bucket.size() > 4096;
-        }
-    }
-
-    protected int gp = 0;
-    //array de buckets, ou seja, a tabela
-
-     ArrayList<Pagina<K,V>> arrayDeBuckets = new ArrayList<Pagina<K, V>>();
-
-    //construtor da uma hashtable, simplesmente adiciona uma pagina ao array
-    public void HashTable() {
-        arrayDeBuckets.add(new Pagina<K, V>());
-    }
-
-       public void insert() {
-        BufferedReader br3 = null;
+    public void insert() {
+        RandomAccessFile br3 = null;
         String line;
         String index = "";
         String sortKey = "";
         int idx = 1;
         int stk = 1;
 
-        try{
-            br3 = new BufferedReader(new FileReader("simpledb.db"));
+        try {
+            br3 = new RandomAccessFile("simpledb.db", "rw");
             while ((line = br3.readLine()) != null) {
-                String trimmed = line;
-                index = trimmed.substring(0, 1);
-                sortKey = trimmed.substring(2,3);
+                String[] trimmed = line.split(";");
+                index = trimmed[0];
+                sortKey = trimmed[1];
+
                 idx = Integer.valueOf(index);
-                stk = Integer.valueOf(sortKey);
+
+
+                long pointer = br3.getFilePointer();
+
+                if (!bucket.containsKey(idx)) {
+                    bucket.put(idx, pointer);
+                }
             }
-        }catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println(bucket);
+    }
 
+    void updateHash(Integer idx, Integer sortKey) {
+        System.out.println("bucket antes da alteracao" + bucket);
 
-        int bucketIndex = index.hashCode(); //calcular o bucket vai incluir
-      //  Pagina p = arrayDeBuckets.
-        Pagina<K, V> p = arrayDeBuckets.get(bucketIndex);//encontraa o bucket para inserir a chave
+        bucket.put(idx, searchHash(idx));
 
-        //se preferir, o numero de páginas, ainda não to usando pra nada
-        int numBuckets = arrayDeBuckets.size();
+        System.out.println("bucket depois da alteracao" + bucket);
+    }
 
-        //verifica se a chave já está contida no bucket
-        Set<Integer> chaves = p.bucket.keySet();
-        for (Integer chave : chaves){
-            if (p.bucket.containsKey(idx)) {
-                break;
-            }else if(!p.isfull()){
-                p.bucket.put(idx,stk);
-                p.size ++;
-            }else{
-                Pagina newPagina = new Pagina();
-                newPagina.bucket.put(idx,stk);
-                p.next =newPagina;
-                newPagina.size++;
-                //a função set() do HashMap já  insere a nova pagina no Array de Buckets
-                arrayDeBuckets.add(newPagina);
+    Long searchHash(Integer idx) {
+        //return bucket.get(idx);
+
+        for (Integer i : bucket.keySet()) {
+            if (i == idx) {
+               return bucket.get(i);
             }
         }
+        return null;
     }
 }
+
