@@ -2,8 +2,6 @@ package base.simplebd;
 
 import java.io.*;
 import java.util.*;
-import java.util.List;
-import java.util.Map.Entry;
 
 public class HashExtensivel<K,V> {
 
@@ -25,7 +23,6 @@ public class HashExtensivel<K,V> {
                 sortKey = trimmed[1];
 
                 idx = Integer.valueOf(index);
-
 
                 long pointer = br3.getFilePointer();
 

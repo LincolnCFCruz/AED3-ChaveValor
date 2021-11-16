@@ -1,14 +1,14 @@
 package base.simplebd;
 
-import java.io.*;
 import java.util.*;
 
-
 public class Main {
-
     public static void main(String[] args) {
-        int option;
+        int option,k,sK;
+        long pos;
         boolean flag = true;
+        String value;
+
         Scanner entrada = new Scanner(System.in);
         HashExtensivel hash = new HashExtensivel();
         CRUD crud = new CRUD();
@@ -19,6 +19,7 @@ public class Main {
         System.out.println("Opcao 4: Search");
         System.out.println("Opcao 5: Update");
         System.out.println("Opcao 6: Read");
+        System.out.println("Opcao 7: Hash");
         System.out.println("Opcao 0: Exit");
 
         while (flag == true) {
@@ -26,38 +27,33 @@ public class Main {
             option = entrada.nextInt();
 
             switch (option) {
-                case 1: //Create
+                case 1:
                     crud.create();
                     break;
-                case 2: //Insert
-                    crud.insert();
+                case 2:
+                    crud.insert(sK = entrada.nextInt(), value = entrada.next());
                     break;
-                case 3: //Remove
-                    crud.remove(4);
-                    hash.removeHash(13);
-
+                case 3:
+                    crud.remove(k=entrada.nextInt());
+                    hash.removeHash(k);
                     break;
-                case 4: //Read
-
-                   // crud.search(hash.reverseSearchHash(3));
-                    hash.reverseHash();
-                    hash.ordenaHash();
+                case 4:
+                    crud.search(pos = entrada.nextLong());
                     break;
-                case 5: //Delete
-                   crud.update("1","10","tudo bem aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-                   //hash.updateHash(2, 8);
-                    System.out.println(hash.bucket);
+                case 5:
+                    crud.update(k = entrada.nextInt(), sK = entrada.nextInt(), value = entrada.next());
                     break;
                 case 6:
-                    //crud.read();
-                   // hash.list();
+                    crud.list();
+                    System.out.println("\nBucket List \n");
+                    System.out.println(hash.bucket);
+                    break;
+                case 7:
+                    hash.insert();
+                    hash.ordenaHash();
                     break;
                 case 0:
-
-                   hash.insert();
-                   hash.ordenaHash();
-                   //ash.updateHash(1,2);
-                    //flag = false;
+                    flag = false;
                     break;
                 default:
                     System.out.println("Utilize uma opcao valida.");
