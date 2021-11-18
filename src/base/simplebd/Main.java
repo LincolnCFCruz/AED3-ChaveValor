@@ -53,7 +53,6 @@ public class Main {
                         }
                         else{
                             System.out.println("Número de argumentos incorreto para a operação. \nPara mais informações de uso, utilize a opção --help");
-
                         }
                         break;
                     case "--remove":
@@ -76,19 +75,27 @@ public class Main {
 
                     break;
                     case "--list":
-                        if(arg[1].matches("[0-9]+<[0-9]+")){
+                        String[] n;
+                        if(arg[1].matches("key<[0-9]+")){
+                            n=arg[1].split("<");
+                            // listmenorque(n[1]);
                             System.out.println("A função list '<' ainda não foi desenvolvida hehe");
                         }
-                        else if(arg[1].matches("[0-9]+>[0-9]+")){
+                        else if(arg[1].matches("key>[0-9]+")){
+                            n=arg[1].split(">");
+                            // listmaiorque(n[1]);
                             System.out.println("A função list '>' ainda não foi desenvolvida hehe");
                         }
-                        else if(arg[1].matches("[0-9]+") && arg[2].matches("[0-9]+")){ //lembrar que o '=' foi "comido" no split
+                        else if(arg.length==3 && arg[1].matches("key") && arg[2].matches("[0-9]+")){ //lembrar que o '=' foi "comido" no split
+                            // listigual(arg[2]);
                             System.out.println("A função list '=' ainda não foi desenvolvida hehe");
                         }
-                        else if(arg.length==3 && arg[1].matches("[0-9]+<") && arg[2].matches("[0-9]+")){ //lembrar que o '=' foi "comido" no split
+                        else if(arg.length==3 && arg[1].matches("key<") && arg[2].matches("[0-9]+")){ //lembrar que o '=' foi "comido" no split
+                            //listmenorigual(arg[2]);
                             System.out.println("A função list '<=' ainda não foi desenvolvida hehe");
                         }
-                        else if(arg.length==3 && arg[1].matches("[0-9]+>") && arg[2].matches("[0-9]+")){ //lembrar que o '=' foi "comido" no split
+                        else if(arg.length==3 && arg[1].matches("key>") && arg[2].matches("[0-9]+")){ //lembrar que o '=' foi "comido" no split
+                            //listmaiorigual(arg[2]);
                             System.out.println("A função list '>=' ainda não foi desenvolvida hehe");
                         }
                         else{
@@ -96,19 +103,26 @@ public class Main {
                         }
                     break;
                     case "--reverse-list":
-                        if(arg[1].matches("[0-9]+<[0-9]+")){
+                        if(arg[1].matches("key<[0-9]+")){
+                            n=arg[1].split("<");
+                            // reverselistmenorque(n[1]);
                             System.out.println("A função reverse-list '<' ainda não foi desenvolvida hehe");
                         }
-                        else if(arg[1].matches("[0-9]+>[0-9]+")){
+                        else if(arg[1].matches("key+>[0-9]+")){
+                            n=arg[1].split(">");
+                            // reverselistmaiorque(n[1]);
                             System.out.println("A função reverse-list '>' ainda não foi desenvolvida hehe");
                         }
-                        else if(arg[1].matches("[0-9]+") && arg[2].matches("[0-9]+")){ //lembrar que o '=' foi "comido" no split
+                        else if(arg[1].matches("key") && arg[2].matches("[0-9]+")){ //lembrar que o '=' foi "comido" no split
+                            // reverselistigual(arg[2]);
                             System.out.println("A função reverse-list '=' ainda não foi desenvolvida hehe");
                         }
-                        else if(arg.length==3 && arg[1].matches("[0-9]+<") && arg[2].matches("[0-9]+")){ //lembrar que o '=' foi "comido" no split
+                        else if(arg.length==3 && arg[1].matches("key<") && arg[2].matches("[0-9]+")){ //lembrar que o '=' foi "comido" no split
                             System.out.println("A função reverse-list '<=' ainda não foi desenvolvida hehe");
+                            //reverselistmenorigual(arg[2]);
                         }
-                        else if(arg.length==3 && arg[1].matches("[0-9]+>") && arg[2].matches("[0-9]+")){ //lembrar que o '=' foi "comido" no split
+                        else if(arg.length==3 && arg[1].matches("key+>") && arg[2].matches("[0-9]+")){ //lembrar que o '=' foi "comido" no split
+                            //reverselistmaiorigual(arg[2]);
                             System.out.println("A função reverse-list '>=' ainda não foi desenvolvida hehe");
                         }
                         else{
@@ -118,9 +132,11 @@ public class Main {
                     break;
                     case "--compress":
                         if(arg[1].equals("lzw") ){
+                            //compresslzw();
                             System.out.println("A função de compactação utilizando o o algoritmo LZW ainda não foi desenvolvida hehe");
                         }
                         else if(arg[1].equals("huffman")){
+                            //compresshuffman();
                             System.out.println("A função de compactação utilizando o o algoritmo Huffman ainda não foi desenvolvida hehe");
                         }
                         else{
@@ -129,9 +145,11 @@ public class Main {
                     break;
                     case "--decompress":
                         if(arg[1].equals("lzw") ){
+                            //decompresslzw();
                             System.out.println("A função de descompactação utilizando o o algoritmo LZW ainda não foi desenvolvida ");
                         }
                         else if(arg[1].equals("huffman")){
+                            //decompresshuffman();
                             System.out.println("A função de descompactação utilizando o o algoritmo Huffman ainda não foi desenvolvida ");
                         }
                         else{
@@ -144,7 +162,6 @@ public class Main {
                 }
             }
         }
-
     }
 
     public static void test() {
