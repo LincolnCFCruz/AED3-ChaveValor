@@ -12,31 +12,21 @@ public class Main {
         else{
 
             if(args.length==0 || args[0].equals("--help")){
-                System.out.println("""
-                        simpledb [cmd]
-                          --insert=<sort-key,value>\s
-                              Insere um objeto no banco de dados.
-                          --remove=<key>
-                              Remove do banco de dados o objeto identificado pela chave key.
-                          --search=<key>
-                              Busca no banco de dados objeto identificado pela chave key.
-                          --update=<key,sort-key,value>
-                              Atualiza o objeto que e identificado pela chave key.\s
-                          --list=<expr>
-                              Lista em ordem crescente todos os objetos que possam uma chave de ordenação que atenda aos critérios especificados pela expressão 'expr'.
-                          --reverse-list=<expr>
-                              Lista em ordem decrescente  todos os objetos que possam uma chave de ordenação que atenda aos critérios especificados pela expressão 'expr'.
-                          * A expressão 'expr' deve aceitar qualquer operação logica simples envolvendo a chave:
-                              key>X: objetos que possuem chave de ordenação maior que X.
-                              key<X: objetos que possuem chave de ordenação menor que X.
-                              key=X: objetos que possuem chave ordenação igual a X.
-                              key>=X: objetos que possuem chave de ordenação maior ou igual que X.
-                              key<=X: objetos que possuem chave de ordenação menor ou igual que X.
-                          --compress=[huffman|lzw]
-                              Compacta os registros do banco de dados usando o algoritmo de Codificação de Huffman ou o Algoritmo de Compressão LZW.\s
-                          --decompress=[huffman|lzw]
-                              Descompacta os registros do banco de dados usando o algoritmo de Codificação de Huffman ou o Algoritmo de Compressão LZW.\s
-                        """);
+                System.out.println("simpledb [cmd]\n" +
+                        "  --insert=<sort-key,value> \n      Insere um objeto no banco de dados.\n" +
+                        "  --remove=<key>\n      Remove do banco de dados o objeto identificado pela chave key.\n" +
+                        "  --search=<key>\n      Busca no banco de dados objeto identificado pela chave key.\n" +
+                        "  --update=<key,sort-key,value>\n      Atualiza o objeto que e identificado pela chave key. \n" +
+                        "  --list=<expr>\n      Lista em ordem crescente todos os objetos que possam uma chave de ordenação que atenda aos critérios especificados pela expressão 'expr'.\n" +
+                        "  --reverse-list=<expr>\n      Lista em ordem decrescente  todos os objetos que possam uma chave de ordenação que atenda aos critérios especificados pela expressão 'expr'.\n" +
+                        "  * A expressão 'expr' deve aceitar qualquer operação logica simples envolvendo a chave:\n" +
+                        "      key>X: objetos que possuem chave de ordenação maior que X.\n" +
+                        "      key<X: objetos que possuem chave de ordenação menor que X.\n" +
+                        "      key=X: objetos que possuem chave ordenação igual a X.\n" +
+                        "      key>=X: objetos que possuem chave de ordenação maior ou igual que X.\n" +
+                        "      key<=X: objetos que possuem chave de ordenação menor ou igual que X.\n" +
+                        "  --compress=[huffman|lzw]\n      Compacta os registros do banco de dados usando o algoritmo de Codificação de Huffman ou o Algoritmo de Compressão LZW. \n" +
+                        "  --decompress=[huffman|lzw]\n      Descompacta os registros do banco de dados usando o algoritmo de Codificação de Huffman ou o Algoritmo de Compressão LZW. \n");
             } else{
                 String[] arg= args[0].split("=");
                 System.out.println(arg[0]);
