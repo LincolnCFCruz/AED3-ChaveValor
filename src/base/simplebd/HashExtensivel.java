@@ -16,22 +16,29 @@ public class HashExtensivel<K,V> {
         String filePath = "simpledb.db";
         try {
             br12 = new RandomAccessFile(filePath, "rw");
-            while ((line = br12.readLine()) != null) {
+            long pointer = br12.getFilePointer();
+            line = br12.readLine();
+            while (line != null) {
                 if(!line.equals("")) {
                     String[] trimmed = line.split(";");
                     index = trimmed[0];
                     idx = Integer.valueOf(index);
 
-                    long pointer = br12.getFilePointer();
-
                     if (!bucket.containsKey(idx)) {
                         bucket.put(idx, pointer);
                     }
                 }
+                pointer = br12.getFilePointer();
+                line = br12.readLine();
             }
-            br12.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                br12.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         System.out.println(bucket);
     }//ok
