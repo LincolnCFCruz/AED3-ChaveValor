@@ -8,27 +8,32 @@ public class Lzw {
 
         File fArquivo = new File("simpledb.db");
         File fArquivocomp = new File("simpledb.lzw");
-        FileWriter fwArquivo = null;
-        FileWriter fwArquivocomp = null;
+        FileWriter fwArquivo;
+        FileWriter fwArquivocomp;
         Scanner sc2 = null;
-        BufferedWriter bw = null;
-        BufferedReader br = null;
+        BufferedWriter bw;
+        BufferedReader br;
         ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream("simpledb.lzw"));
 
-        if (fArquivo.exists() == true) {
+        if (fArquivo.exists()) {
             fwArquivo = new FileWriter(fArquivo, true);
         } else {
             fwArquivo = new FileWriter(fArquivo);
         }
-        if (fArquivocomp.exists() == true) {
+        if (fArquivocomp.exists()) {
             fwArquivocomp = new FileWriter(fArquivocomp, true);
         } else {
             fwArquivocomp = new FileWriter(fArquivocomp);
         }
         bw = new BufferedWriter(fwArquivocomp);
         br = new BufferedReader(new FileReader("simpledb.db"));
-
-
+        String text="";
+        String line;
+        while((line = br.readLine()) != null) {
+            text=text.concat(line);
+            text=text.concat(";");
+            System.out.println(text);
+        }
         int dictam = 256;
         Map<String, Integer> dic = new HashMap<String, Integer>();
         for (int i = 0; i < 256; i++) {
@@ -36,7 +41,7 @@ public class Lzw {
         }
         String w = "";
         List<Integer> result = new ArrayList<Integer>();
-        for (char c : uncompressed.toCharArray()) {
+        for (char c : text.toCharArray()) {
             String wc = w + c;
             if (dic.containsKey(wc))
                 w = wc;
@@ -51,7 +56,7 @@ public class Lzw {
         if (!w.equals("")) {
             result.add(dic.get(w));
         }
-        bw.write(result.toString());
+        //bw.write(result.toString());
         file.writeObject(result.toString());
         br.close();
         bw.close();
