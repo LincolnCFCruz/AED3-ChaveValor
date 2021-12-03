@@ -113,18 +113,21 @@ public class CRUD {
         String line;
         String sortKey;
         String value;
+        String key;
 
         try{
             br2 = new RandomAccessFile("simpledb.db", "rw");
 
+            br2.seek(pos);
+
             line = br2.readLine();
             String[] trimmed = line.split(";");
+            key = trimmed[0];
             sortKey = trimmed[1];
             value = trimmed[2];
 
-            br2.seek(pos);
 
-            System.out.println(sortKey +" - "+ value);
+            System.out.println(key + "-" + sortKey +" - "+ value);
 
         } catch (IOException e) {
             e.printStackTrace();

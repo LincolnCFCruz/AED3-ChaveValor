@@ -35,14 +35,18 @@ public class Main {
 
             switch (option) {
                 case 1:
-                    crud.insert(sK = entrada.nextInt(), value = entrada.next());
+                    //crud.insert(sK = entrada.nextInt(), value = entrada.next());
+                    hash.insert();
                     break;
                 case 2:
                     hash.removeHash(k=entrada.nextInt());
                     crud.remove(k);
                     break;
                 case 3:
-                    crud.search(hash.searchHash(2));
+                    //hash.searchHash(5);
+                   // Long pos1 = Long.valueOf(64);
+                   // crud.search(pos1);
+                    hash.listIdxMaior(5);
                     break;
                 case 4:
                     crud.update(k = entrada.nextInt(), sK = entrada.nextInt(), value = entrada.next());

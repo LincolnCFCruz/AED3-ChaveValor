@@ -62,12 +62,20 @@ public class HashExtensivel<K,V> {
         System.out.println("Depois da remocao" + bucket);
     }//ok
 
-    //ordena a hash
-    void ordenaHash(){
+
+    // key>X: objetos que possuem chave de ordenação maior que X.
+    void listIdxMaior(Integer idx){
+        //ordenaHash();
         TreeMap<Integer, Long> newMap = new TreeMap<>();
         newMap.putAll(bucket);
-    }//ok
+        CRUD crud = new CRUD();
+        for (Integer i : newMap.keySet()) {
+            if (i > idx) {
+                crud.search(searchHash(i));
+            }
+        }
 
+    }
     //inverte a Hash obs: usar no método list();
     TreeMap reverseHash(){
         TreeMap<Integer, Long> newMap = new TreeMap<>(Collections.reverseOrder());
