@@ -159,9 +159,9 @@ public class Main {
     }
 
     public static void test() throws IOException {
-        List<Integer> compressed = compress("TOBEORNOTTOBEORTOBEORNOT");
-        System.out.println(compressed);
-        String decompressed = decompress(compressed);
-        System.out.println(decompressed);
+        //List<Integer> compressed = compress();
+        //System.out.println(compressed);
+        String decompressed = decompress();
+        //System.out.println(decompressed);
     }
 }
