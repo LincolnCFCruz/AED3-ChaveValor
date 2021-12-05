@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class Lzw {
-    public static List<Integer> compress() throws IOException {
+    public static void compressLZW() throws IOException {
 
         File fArquivo = new File("simpledb.db");
         File fArquivocomp = new File("simpledb.lzw");
@@ -62,10 +62,9 @@ public class Lzw {
         bw.close();
         fwArquivo.close();
         file.close();
-        return result;
     }
 
-    public static String decompress() throws IOException {
+    public static void decompressLZW() throws IOException {
         BufferedWriter bw = null;
         File fArquivo = null;
         FileWriter fwArquivo = null;
@@ -124,6 +123,5 @@ public class Lzw {
         //System.out.println(rr);
         bw.write(rr.toString());
         bw.close();
-        return rr.toString();
     }
 }
