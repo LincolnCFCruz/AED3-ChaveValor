@@ -6,11 +6,70 @@ import java.util.*;
 import static base.simplebd.Lzw.*;
 
 public class Main {
+    public static void menu (){
+        System.out.println("Opcao 1: Insert");
+        System.out.println("Opcao 2: Remove");
+        System.out.println("Opcao 3: Search");
+        System.out.println("Opcao 4: Update");
+        System.out.println("Opcao 5: Read");
+        System.out.println("Opcao 0: Exit");
+    }
+
+    public static void test() {
+        int option,k,sK;
+        long pos;
+        boolean flag = true, menuTeste = true;
+        String value;
+
+        Scanner entrada = new Scanner(System.in);
+        HashExtensivel hash = new HashExtensivel();
+        CRUD crud = new CRUD();
+
+        hash.insert();
+        hash.ordenaHash();
+
+        if(menuTeste){
+            menu();
+        }
+
+        while (flag == true) {
+            System.out.println("Digite sua opcao:");
+            option = entrada.nextInt();
+
+            switch (option) {
+                case 1:
+                    crud.insert(sK = entrada.nextInt(), value = entrada.next());
+                    break;
+                case 2:
+                    hash.removeHash(k=entrada.nextInt());
+                    crud.remove(k);
+                    break;
+                case 3:
+                    crud.search(hash.searchHash(2));
+                    break;
+                case 4:
+                    crud.update(k = entrada.nextInt(), sK = entrada.nextInt(), value = entrada.next());
+                    break;
+                case 5:
+                    crud.list();
+                    System.out.println("\nBucket List \n" + hash.bucket);
+                    break;
+                case 0:
+                    flag = false;
+                    break;
+                default:
+                    System.out.println("Utilize uma opcao valida.");
+            }
+        }
+    }
+
     public static void main(String[] args) throws IOException {
-        int teste=0;
-        teste=1;
+        Scanner sc = new Scanner(System.in);
+        int teste = sc.nextInt();
+
+
         if(teste==1){
-        test();
+            test();
         }
         else{
 
@@ -55,7 +114,7 @@ public class Main {
                     case "--search":
                         // crud.search(arg[1]);    // arg[1] -> key
                         System.out.println("A função search ainda não foi desenvolvida hehe");
-                    break;
+                        break;
                     case "--update":
                         String[] updateArg= arg[1].split(",");
                         if(updateArg.length==3){
@@ -66,7 +125,7 @@ public class Main {
                             System.out.println("Número de argumentos incorreto para a operação. \nPara mais informações de uso, utilize a opção --help");
                         }
 
-                    break;
+                        break;
                     case "--list":
                         String[] n;
                         if(arg[1].matches("key<[0-9]+")){
@@ -94,7 +153,7 @@ public class Main {
                         else{
                             System.out.println("Opção não contemplada no simpledb\nPara mais informações utilize a opção --help");
                         }
-                    break;
+                        break;
                     case "--reverse-list":
                         if(arg[1].matches("key<[0-9]+")){
                             n=arg[1].split("<");
@@ -122,7 +181,7 @@ public class Main {
                             System.out.println("Opção não contemplada no simpledb\nPara mais informações utilize a opção --help");
                         }
 
-                    break;
+                        break;
                     case "--compress":
                         if(arg[1].equals("lzw") ){
                             compressLZW();
@@ -135,7 +194,7 @@ public class Main {
                         else{
                             System.out.println("Opção não contemplada no simpledb\nPara mais informações utilize a opção --help");
                         }
-                    break;
+                        break;
                     case "--decompress":
                         if(arg[1].equals("lzw") ){
                             decompressLZW();
@@ -148,19 +207,11 @@ public class Main {
                         else{
                             System.out.println("Opção não contemplada no simpledb\nPara mais informações utilize a opção --help");
                         }
-                    break;
+                        break;
                     default:
                         System.out.println("Opção não contemplada no simpledb\nPara mais informações utilize a opção --help");
-                    break;
+                        break;
                 }
             }
         }
     }
-
-    public static void test() throws IOException {
-        compressLZW();
-        //System.out.println(compressed);
-        decompressLZW();
-        //System.out.println(decompressed);
-    }
-}

@@ -8,30 +8,37 @@ public class HashExtensivel<K,V> {
     HashMap<Integer, Long> bucket = new HashMap<Integer, Long>();
 
     public void insert() {
-        RandomAccessFile br3 = null;
+        RandomAccessFile br12 = null;
         String line;
         String index = "";
-        String sortKey = "";
         int idx = 1;
-        int stk = 1;
 
+        String filePath = "simpledb.db";
         try {
-            br3 = new RandomAccessFile("simpledb.db", "rw");
-            while ((line = br3.readLine()) != null) {
-                String[] trimmed = line.split(";");
-                index = trimmed[0];
-                sortKey = trimmed[1];
+            br12 = new RandomAccessFile(filePath, "rw");
+            long pointer = br12.getFilePointer();
+            line = br12.readLine();
+            while (line != null) {
+                if(!line.equals("")) {
+                    String[] trimmed = line.split(";");
+                    index = trimmed[0];
+                    idx = Integer.valueOf(index);
 
-                idx = Integer.valueOf(index);
-
-                long pointer = br3.getFilePointer();
-
-                if (!bucket.containsKey(idx)) {
-                    bucket.put(idx, pointer);
+                    if (!bucket.containsKey(idx)) {
+                        bucket.put(idx, pointer);
+                    }
                 }
+                pointer = br12.getFilePointer();
+                line = br12.readLine();
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                br12.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         System.out.println(bucket);
     }//ok

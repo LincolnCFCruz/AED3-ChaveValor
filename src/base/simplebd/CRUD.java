@@ -1,27 +1,11 @@
 package base.simplebd;
 
 import java.io.*;
-import java.util.Scanner;
 
 public class CRUD {
-    public static void create () {
-        try {
-            File file = new File("simpledb.db");
-
-            if (!file.exists()) {
-                file.createNewFile();
-                System.out.println("Done");
-            } else { System.out.println("Arquivo ja existe."); }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    } //ok
-
     public static void insert (Integer sK, String value) {
         File fArquivo = null;
         FileWriter fwArquivo = null;
-        Scanner sc2 = null;
         BufferedWriter bw = null;
         BufferedReader br =  null;
 
@@ -37,28 +21,32 @@ public class CRUD {
             bw = new BufferedWriter(fwArquivo);
             br = new BufferedReader(new FileReader("simpledb.db"));
 
-            String line;
-            int index = 1;
+            int index=1;
+            String idx = "1";
+            String sortKey = String.valueOf(sK);
+            String line, newContent;
 
-            while ((line = br.readLine()) != null){
+            while((line = br.readLine()) != null) {
                 String [] trimmed = line.split(";");
-                String key = trimmed [0];
-
-                if (key != null) {
-                    index = Integer.parseInt(key);
+                idx = trimmed [0];
+                if (!line.equals("")) {
+                    index = Integer.parseInt(idx);
                     index++;
-                } else if (key == null){
-                    index = 1;
+                } else {
+                    index = 0;
                 }
+                idx = String.valueOf(index);
             }
-            System.out.println("Teste: "+ index);
 
-            bw.write("\n" + index + ";");
-            bw.write(sK + ";");
-            bw.write(value);
+            newContent = idx + ";" + sortKey + ";" + value;
 
-            System.out.println("Done");
+            if (index == 1){
+                bw.write(newContent);
+            }
 
+            if (index != 1) {
+                bw.write("\n" + newContent);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
@@ -73,40 +61,52 @@ public class CRUD {
     } //ok
 
     public static void remove (Integer k) {
-        BufferedReader my_reader = null;
-        FileWriter my_writer = null;
+        File finalFile = null;
+        File deleteTemp = null;
+        FileWriter fwArquivo = null;
+        BufferedWriter my_writer = null;
+        BufferedReader my_reader =  null;
 
         String filePath = "simpledb.db";
         String fileTemp = "simpledbTemp.db";
+        int count=0;
 
         try {
-            File main_file = new File(filePath);
-            File temp_file = new File(fileTemp);
+            finalFile = new File(filePath);
+            deleteTemp = new File (fileTemp);
+            fwArquivo = new FileWriter(fileTemp);
+            my_writer = new BufferedWriter(fwArquivo);
+            my_reader = new BufferedReader(new FileReader("simpledb.db"));
 
-            my_reader = new BufferedReader(new FileReader(main_file));
-            my_writer = new FileWriter(temp_file);
-
-            System.out.println("Delete: ");
             String lineToRemove = String.valueOf(k);
             String current_line;
 
             while((current_line = my_reader.readLine()) != null){
-                String [] trimmed = current_line.split(";");
-                String key = trimmed [0];
+                if(!current_line.equals("")) {
+                    String[] trimmed = current_line.split(";");
+                    String key = trimmed[0];
 
-                if(!key.equals(lineToRemove)){
-                    my_writer.write(current_line + "\n");
+                    if (!key.equals(lineToRemove)) {
+                        if(count == 0){
+                            my_writer.write(current_line);
+                        } else {
+                            my_writer.write("\n" + current_line);
+                        }
+                        count++;
+                    }
                 }
             }
-            my_writer.close();
             my_reader.close();
+            my_writer.close();
+            fwArquivo.close();
 
-            main_file.delete();
-            temp_file.renameTo(main_file);
+            finalFile.delete();
+            deleteTemp.renameTo(finalFile);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-    } //Esta funcionando, mas falta remover linha vazia após exclusão. (Pode quebrar o simpledb.db)
+    }
 
     public static void search (Long pos) {
         RandomAccessFile br2 = null;
@@ -117,11 +117,12 @@ public class CRUD {
         try{
             br2 = new RandomAccessFile("simpledb.db", "rw");
 
-            br2.seek(pos);
             line = br2.readLine();
             String[] trimmed = line.split(";");
             sortKey = trimmed[1];
             value = trimmed[2];
+
+            br2.seek(pos);
 
             System.out.println(sortKey +" - "+ value);
 
@@ -139,37 +140,42 @@ public class CRUD {
     public static void update (Integer key, Integer newsortKey, String value) {
         BufferedReader br = null;
         FileWriter writer = null;
+        int count = 0;
+        String newString;
 
         try{
             br = new BufferedReader(new FileReader("simpledb.db"));
+            writer = new FileWriter(("simpledb.db"));
 
             String line;
-            String newString = "";
-            String oldString = "";
-            String oldContent = "";
             String updateLine = String.valueOf(key);
 
             while ((line = br.readLine()) != null) {
-                oldContent = oldContent + line + System.lineSeparator();
+                if(!line.equals("")) {
+                    String[] trimmed = line.split(";");
+                    String keyA = trimmed[0];
 
-                String [] trimmed = line.split(";");
-                String keyA = trimmed [0];
+                    if (keyA.equals(updateLine)) {
+                        String sortKeyUpdate;
+                        sortKeyUpdate = String.valueOf(newsortKey);
 
-                if (keyA.equals(updateLine)){
-                    oldString = line;
+                        String valueUpdate;
+                        valueUpdate = value;
 
-                    String sortKeyUpdate;
-                    sortKeyUpdate = String.valueOf(newsortKey);
-
-                    String valueUpdate;
-                    valueUpdate = value;
-
-                    newString = updateLine + ";" + sortKeyUpdate + ";" + valueUpdate;
-                    System.out.println(newString);
+                        newString = updateLine + ";" + sortKeyUpdate + ";" + valueUpdate;
+                        if(count == 0) {
+                            writer.write(newString);
+                        } else {
+                            writer.write("\n" + newString);
+                        }
+                    }else{
+                        if (count == 0){
+                            writer.write(line);
+                        } else {
+                            writer.write("\n" + line);
+                        }
+                    }
                 }
-                String newContent = oldContent.replaceAll(oldString,newString);
-                writer = new FileWriter(("simpledb.db"));
-                writer.write(newContent);
             }
         } catch (IOException e) {
             e.printStackTrace();
