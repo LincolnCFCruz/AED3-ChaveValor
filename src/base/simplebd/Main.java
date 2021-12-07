@@ -1,6 +1,9 @@
 package base.simplebd;
 
+import java.io.IOException;
 import java.util.*;
+
+import static base.simplebd.Lzw.*;
 
 public class Main {
     public static void menu (){
@@ -64,9 +67,10 @@ public class Main {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Scanner sc = new Scanner(System.in);
         int teste = sc.nextInt();
+
 
         if(teste==1){
             test();
@@ -184,7 +188,7 @@ public class Main {
                         break;
                     case "--compress":
                         if(arg[1].equals("lzw") ){
-                            //compresslzw();
+                            compressLZW();
                             System.out.println("A função de compactação utilizando o o algoritmo LZW ainda não foi desenvolvida hehe");
                         }
                         else if(arg[1].equals("huffman")){
@@ -197,7 +201,7 @@ public class Main {
                         break;
                     case "--decompress":
                         if(arg[1].equals("lzw") ){
-                            //decompresslzw();
+                            decompressLZW();
                             System.out.println("A função de descompactação utilizando o o algoritmo LZW ainda não foi desenvolvida ");
                         }
                         else if(arg[1].equals("huffman")){
@@ -215,4 +219,3 @@ public class Main {
             }
         }
     }
-}
