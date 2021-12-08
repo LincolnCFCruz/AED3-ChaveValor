@@ -5,7 +5,6 @@ import java.util.*;
 
 public class selectionSort {
     public static void selectionCode(String[] arr, int n) {
-
         for(int i = 0; i < n - 1; i++) {
             int min_index = i;
             String minStr = arr[i];
@@ -28,17 +27,33 @@ public class selectionSort {
 
         Scanner entrada = new Scanner(System.in);
         int op = entrada.nextInt();
-        if(op==1) {
-            System.out.println("Crescente");
-            for (int k = 0; k < arr.length; k++) {
-                System.out.println(arr[k]);
+        int count =0;
+
+        try {
+            BufferedWriter br15 = new BufferedWriter(new FileWriter("simpledb.db"));
+
+            if (op == 1) {
+                for (int k = 0; k < arr.length; k++) {
+                    if(count == 0){
+                        br15.write(arr[k]);
+                    } else {
+                        br15.write("\n" + arr[k]);
+                    }
+                    count++;
+                }
+            } else if (op == 2) {
+                for (int k = arr.length - 1; k >= 0; k--) {
+                    if(count == 0){
+                        br15.write(arr[k]);
+                    } else {
+                        br15.write("\n" + arr[k]);
+                    }
+                    count++;
+                }
             }
-        }
-        else if(op==2) {
-            System.out.println("Decrescente");
-            for (int k = arr.length - 1; k >= 0; k--) {
-                System.out.println(arr[k]);
-            }
+            br15.close();
+        } catch (IOException e){
+            e.printStackTrace();
         }
     }
 
@@ -63,9 +78,10 @@ public class selectionSort {
 
             String[] trimmed = Conteudo.split(",");
 
+            br.close();
+
             selectionCode(trimmed,contador);
 
-            br.close();
         }catch (IOException e){
             e.printStackTrace();
         }

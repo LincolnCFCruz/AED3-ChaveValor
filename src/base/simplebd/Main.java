@@ -9,7 +9,7 @@ public class Main {
         System.out.println("Opcao 2: Remove");
         System.out.println("Opcao 3: Search");
         System.out.println("Opcao 4: Update");
-        System.out.println("Opcao 5: Read");
+        System.out.println("Opcao 5: SelectionSort");
         System.out.println("Opcao 0: Exit");
     }
 

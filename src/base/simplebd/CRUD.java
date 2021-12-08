@@ -199,13 +199,6 @@ public class CRUD {
             }
         } catch (IOException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                br.close();
-                writer.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
