@@ -3,6 +3,9 @@ package base.simplebd;
 import java.io.IOException;
 import java.util.*;
 
+import static base.simplebd.Lzw.*;
+
+
 public class Main {
     public static void menu() {
         System.out.println("Opcao 1: Insert");
@@ -63,17 +66,18 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        int k, sK;
-        long pos;
-        boolean flag = true, menuTeste = true;
-        String value;
+        //int k, sK;
+        //long pos;
+        //boolean flag = true, menuTeste = true;
+        //String value;
 
-        Scanner entrada = new Scanner(System.in);
+
+        //Scanner entrada = new Scanner(System.in);
         HashExtensivel hash = new HashExtensivel();
         CRUD crud = new CRUD();
         selectionSort select = new selectionSort();
 
-        int teste = entrada.nextInt();
+        int teste = 0;
 
         if (teste == 1) {
             test();
@@ -105,23 +109,28 @@ public class Main {
                     case "--insert":
                         String[] insertArg = arg[1].split(",");
                         if (insertArg.length == 2) {
-                            crud.insert(sK = entrada.nextInt(), value = entrada.next());
+                            crud.insert(Integer.valueOf(insertArg[0]),insertArg[1]); // sort-key,value
+                            //crud.insert(sK = entrada.nextInt(), value = entrada.next());
                             hash.insert();
                         } else {
                             System.out.println("Número de argumentos incorreto para a operação. \nPara mais informações de uso, utilize a opção --help");
                         }
                         break;
                     case "--remove":
-                        hash.removeHash(k = entrada.nextInt());
-                        crud.remove(k);
+                        crud.remove(Integer.valueOf(arg[1])); // arg[1] -> key
+                        hash.removeHash(Integer.valueOf(arg[1]));
+                        //hash.removeHash(k = entrada.nextInt());
+                        //crud.remove(k);
                         break;
                     case "--search":
-                        crud.search(hash.searchHash(k = entrada.nextInt()));
+                        //crud.search(hash.searchHash(k = entrada.nextInt()));
+                        crud.search(Long.valueOf(arg[1])); // arg[1] -> key
                         break;
                     case "--update":
                         String[] updateArg = arg[1].split(",");
                         if (updateArg.length == 3) {
-                            crud.update(k = entrada.nextInt(), sK = entrada.nextInt(), value = entrada.next());
+                            crud.update(Integer.valueOf(updateArg[0]),Integer.valueOf(updateArg[1]),updateArg[2]); //key,sort-key,value
+                            //crud.update(k = entrada.nextInt(), sK = entrada.nextInt(), value = entrada.next());
                         } else {
                             System.out.println("Número de argumentos incorreto para a operação. \nPara mais informações de uso, utilize a opção --help");
                         }
@@ -175,7 +184,7 @@ public class Main {
                         break;
                     case "--compress":
                         if (arg[1].equals("lzw")) {
-                          //  compressLZW();
+                            compressLZW();
                             System.out.println("A função de compactação utilizando o o algoritmo LZW ainda não foi desenvolvida hehe");
                         } else if (arg[1].equals("huffman")) {
                             //compresshuffman();
@@ -186,7 +195,7 @@ public class Main {
                         break;
                     case "--decompress":
                         if (arg[1].equals("lzw")) {
-                            //decompressLZW();
+                            decompressLZW();
                             System.out.println("A função de descompactação utilizando o o algoritmo LZW ainda não foi desenvolvida ");
                         } else if (arg[1].equals("huffman")) {
                             //decompresshuffman();
