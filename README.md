@@ -31,7 +31,7 @@ source ~/.bashrc``
 ``javac -Xlint:unchecked  base/simplebd/Main.java base/simplebd/Lzw.java base/simplebd/HashExtensivel.java base/simplebd/CRUD.java base/simplebd/selectionSort.java``
 ``java base.simplebd.Main``
 
-```
+
 
 
 ## CLI
