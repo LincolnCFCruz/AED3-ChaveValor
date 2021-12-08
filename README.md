@@ -18,6 +18,20 @@ Código desenvolvido como projeto para a disciplina Arlgoritmos e Estrutura de D
 ## Estrutura Base
 
 ## Instalação
+###Instalar o JDK:
+``wget https://download.java.net/java/GA/jdk17/0d483333a00540d886896bac774ff48b/35/GPL/openjdk-17_linux-x64_bin.tar.gz``
+``sudo tar xvf openjdk-17_linux-x64_bin.tar.gz``
+``sudo mv jdk-17 /opt/``
+``export JAVA_HOME=/opt/jdk-17
+export PATH=$PATH:$JAVA_HOME/bin 
+source ~/.bashrc``
+``echo $JAVA_HOME``
+### Compilar o Código:
+``cd src``
+``javac -Xlint:unchecked  base/simplebd/Main.java base/simplebd/Lzw.java base/simplebd/HashExtensivel.java base/simplebd/CRUD.java base/simplebd/selectionSort.java``
+``java base.simplebd.Main``
+
+```
 
 
 ## CLI
