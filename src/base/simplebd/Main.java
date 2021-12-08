@@ -104,13 +104,14 @@ public class Main {
                 if (arg.length == 1) {
                     System.out.println("Faltando argumentos para as operações. \nPara mais informações de uso, utilize a opção --help");
                 }
+                hash.insert();
                 switch (arg[0]) {
                     case "--insert":
                         String[] insertArg = arg[1].split(",");
                         if (insertArg.length == 2) {
                             crud.insert(Integer.valueOf(insertArg[0]),insertArg[1]); // sort-key,value
                             //crud.insert(sK = entrada.nextInt(), value = entrada.next());
-                            hash.insert();
+                            //hash.insert();
                         } else {
                             System.out.println("Número de argumentos incorreto para a operação. \nPara mais informações de uso, utilize a opção --help");
                         }
@@ -123,7 +124,7 @@ public class Main {
                         break;
                     case "--search":
                         //crud.search(hash.searchHash(k = entrada.nextInt()));
-                        crud.search(Long.valueOf(arg[1])); // arg[1] -> key
+                        crud.search(hash.searchHash(Integer.valueOf(arg[1]))); // arg[1] -> key
                         break;
                     case "--update":
                         String[] updateArg = arg[1].split(",");
