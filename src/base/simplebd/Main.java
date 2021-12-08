@@ -3,8 +3,6 @@ package base.simplebd;
 import java.io.IOException;
 import java.util.*;
 
-//import static base.simplebd.Lzw.*;
-
 public class Main {
     public static void menu() {
         System.out.println("Opcao 1: Insert");
@@ -26,10 +24,7 @@ public class Main {
         CRUD crud = new CRUD();
         selectionSort select = new selectionSort();
 
-        select.lerArquivo();
-
         hash.insert();
-        ////hash.ordenaHash();
 
         if (menuTeste) {
             menu();
@@ -41,7 +36,7 @@ public class Main {
 
             switch (option) {
                 case 1:
-                    //crud.insert(sK = entrada.nextInt(), value = entrada.next());
+                    crud.insert(sK = entrada.nextInt(), value = entrada.next());
                     hash.insert();
                     break;
                 case 2:
@@ -49,19 +44,13 @@ public class Main {
                     crud.remove(k);
                     break;
                 case 3:
-
-                    hash.insertSK();
-                    System.out.println("  \n" );
-
-                    hash.listIdxMenorIgual(5,2);
-
-
+                    crud.search(hash.searchHash(k = entrada.nextInt()));
                     break;
                 case 4:
                     crud.update(k = entrada.nextInt(), sK = entrada.nextInt(), value = entrada.next());
                     break;
                 case 5:
-                    crud.list();
+                    select.lerArquivo();
                     System.out.println("\nBucket List \n" + hash.bucket);
                     break;
                 case 0:
@@ -74,9 +63,17 @@ public class Main {
     }
 
     public static void main(String[] args) throws IOException {
-        Scanner sc = new Scanner(System.in);
-        int teste = sc.nextInt();
+        int k, sK;
+        long pos;
+        boolean flag = true, menuTeste = true;
+        String value;
 
+        Scanner entrada = new Scanner(System.in);
+        HashExtensivel hash = new HashExtensivel();
+        CRUD crud = new CRUD();
+        selectionSort select = new selectionSort();
+
+        int teste = entrada.nextInt();
 
         if (teste == 1) {
             test();
@@ -108,26 +105,23 @@ public class Main {
                     case "--insert":
                         String[] insertArg = arg[1].split(",");
                         if (insertArg.length == 2) {
-
-                            //crud.insert(insertArg[0],insertArg[1]);   // sort-key,value
-                            System.out.println("A função insert ainda não foi desenvolvida hehe");
+                            crud.insert(sK = entrada.nextInt(), value = entrada.next());
+                            hash.insert();
                         } else {
                             System.out.println("Número de argumentos incorreto para a operação. \nPara mais informações de uso, utilize a opção --help");
                         }
                         break;
                     case "--remove":
-                        // crud.remove(arg[1]);    // arg[1] -> key
-                        System.out.println("A função remove ainda não foi desenvolvida hehe");
+                        hash.removeHash(k = entrada.nextInt());
+                        crud.remove(k);
                         break;
                     case "--search":
-                        // crud.search(arg[1]);    // arg[1] -> key
-                        System.out.println("A função search ainda não foi desenvolvida hehe");
+                        crud.search(hash.searchHash(k = entrada.nextInt()));
                         break;
                     case "--update":
                         String[] updateArg = arg[1].split(",");
                         if (updateArg.length == 3) {
-                            // crud.update(updateArg[0],updateArg[1],updateArg[2]); //key,sort-key,value
-                            System.out.println("A função update ainda não foi desenvolvida hehe");
+                            crud.update(k = entrada.nextInt(), sK = entrada.nextInt(), value = entrada.next());
                         } else {
                             System.out.println("Número de argumentos incorreto para a operação. \nPara mais informações de uso, utilize a opção --help");
                         }

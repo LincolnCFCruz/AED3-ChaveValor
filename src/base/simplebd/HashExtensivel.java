@@ -27,7 +27,6 @@ public class HashExtensivel<K,V> {
                 sortKey = trimmed[1];
                 sk = Integer.valueOf(sortKey);
                     bucketSortKey.put(pointer,sk);
-
             }
             pointer = br13.getFilePointer();
             line = br13.readLine();

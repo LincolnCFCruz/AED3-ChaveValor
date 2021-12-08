@@ -22,23 +22,38 @@ public class CRUD {
             br = new BufferedReader(new FileReader("simpledb.db"));
 
             int index=1;
+            int menor = Integer.MAX_VALUE;
+            int maior = Integer.MIN_VALUE;
             String idx = "1";
             String sortKey = String.valueOf(sK);
             String line, newContent;
 
+            // Leitura inicial do arquivo para verificação dos valores já existentes, caso exista valores já existentes adicionar novo valor ao index,
+            // caso contrario index tera o valor inicial "1".
+
             while((line = br.readLine()) != null) {
-                String [] trimmed = line.split(";");
-                idx = trimmed [0];
-                if (!line.equals("")) {
-                    index = Integer.parseInt(idx);
-                    index++;
+                if(!line.equals("")){
+                    String [] trimmed = line.split(";");
+                    idx = trimmed [0];
+
+                    if(!idx.equals("")){
+                        index = Integer.parseInt(idx);
+                        menor = index;
+                        if (maior < menor){
+                            maior = menor;
+                        }
+                        index = maior+1;
+                        System.out.println(index);
+                        idx = idx.valueOf(index);
+                    }
                 } else {
-                    index = 0;
+                    idx = "1";
                 }
-                idx = String.valueOf(index);
             }
 
             newContent = idx + ";" + sortKey + ";" + value;
+
+            // Para evitar espaços vazios dentro do arquivo é feito uma comparação dos valores do index para definir se é necessario ou não pular linha.
 
             if (index == 1){
                 bw.write(newContent);
@@ -58,7 +73,7 @@ public class CRUD {
                 e.printStackTrace();
             }
         }
-    } //ok
+    }
 
     public static void remove (Integer k) {
         File finalFile = null;
@@ -70,6 +85,9 @@ public class CRUD {
         String filePath = "simpledb.db";
         String fileTemp = "simpledbTemp.db";
         int count=0;
+
+        // Leitura sequencial do arquivo que ira alocar em um arquivo temporaro valores diferentes do que sera excluido,
+        // ao terminar o processo o arquivo original sera substituido pelo arquivo temporaro.
 
         try {
             finalFile = new File(filePath);
@@ -111,9 +129,11 @@ public class CRUD {
     public static void search (Long pos) {
         RandomAccessFile br2 = null;
         String line;
+        String key;
         String sortKey;
         String value;
-        String key;
+
+        // Busca e leitura do arquivo a partir da posição definida pela hash.
 
         try{
             br2 = new RandomAccessFile("simpledb.db", "rw");
@@ -122,12 +142,11 @@ public class CRUD {
 
             line = br2.readLine();
             String[] trimmed = line.split(";");
-            key = trimmed[0];
+            key = trimmed [0];
             sortKey = trimmed[1];
             value = trimmed[2];
 
-
-            System.out.println(key + "-" + sortKey +" - "+ value);
+            System.out.println(key + ";" + sortKey + ";" + value);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -138,47 +157,45 @@ public class CRUD {
                 e.printStackTrace();
             }
         }
-    }//ok
+    }
 
     public static void update (Integer key, Integer newsortKey, String value) {
         BufferedReader br = null;
         FileWriter writer = null;
-        int count = 0;
-        String newString;
 
-        try{
+        // Recebe os dados para alteração.
+        // Armazena o conteudo dentro de uma string e substitui o valor desejado.
+
+        try {
             br = new BufferedReader(new FileReader("simpledb.db"));
-            writer = new FileWriter(("simpledb.db"));
-
             String line;
+            String newString = "";
+            String oldString = "";
+            String oldContent = "";
             String updateLine = String.valueOf(key);
 
             while ((line = br.readLine()) != null) {
                 if(!line.equals("")) {
+                    oldContent = oldContent + line + System.lineSeparator();
                     String[] trimmed = line.split(";");
-                    String keyA = trimmed[0];
+                    String index = trimmed[0];
 
-                    if (keyA.equals(updateLine)) {
-                        String sortKeyUpdate;
-                        sortKeyUpdate = String.valueOf(newsortKey);
+                    if (index.equals(updateLine)) {
+                        oldString = line;
+
+                        String typeUpdate;
+                        typeUpdate = String.valueOf(newsortKey);
 
                         String valueUpdate;
                         valueUpdate = value;
 
-                        newString = updateLine + ";" + sortKeyUpdate + ";" + valueUpdate;
-                        if(count == 0) {
-                            writer.write(newString);
-                        } else {
-                            writer.write("\n" + newString);
-                        }
-                    }else{
-                        if (count == 0){
-                            writer.write(line);
-                        } else {
-                            writer.write("\n" + line);
-                        }
+                        newString = key + ";" + typeUpdate + ";" + valueUpdate;
                     }
                 }
+
+                String newContent = oldContent.replaceAll(oldString,newString);
+                writer = new FileWriter(("simpledb.db"));
+                writer.write(newContent);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -190,13 +207,15 @@ public class CRUD {
                 e.printStackTrace();
             }
         }
-    } //ok
+    }
 
     public static void list() {
         BufferedReader br = null;
         try {
             br = new BufferedReader(new FileReader("simpledb.db"));
             String line;
+
+            // Leitura sequencial do arquivo, linha a linha, ate que valor seja nulo.
 
             while ((line = br.readLine()) != null) {
                 System.out.println(line);
@@ -211,5 +230,5 @@ public class CRUD {
                 e.printStackTrace();
             }
         }
-    } //Lê lista completa, falta bucket + ordenação
+    }
 }
