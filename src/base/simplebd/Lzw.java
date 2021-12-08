@@ -115,12 +115,11 @@ public class Lzw {
         String r=result.toString();
         String rr="";
         int n=0;
-
-        while(r!="") {
-            rr=rr.concat(r.substring(0, r.length() - (r.length() - 5)) + "\n");
-            r = r.substring(6);
+        String [] split = r.split(";");
+        for(int i=0;i<split.length; i+=3) {
+            rr=rr.concat(split[i] + ";" + split[i+1] + ";" + split[i+2] + "\n");
         }
-        //System.out.println(rr);
+        System.out.println(rr);
         bw.write(rr.toString());
         bw.close();
     }
