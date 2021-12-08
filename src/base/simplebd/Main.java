@@ -3,6 +3,7 @@ package base.simplebd;
 import java.io.IOException;
 import java.util.*;
 
+import static base.simplebd.Huffman.*;
 import static base.simplebd.Lzw.*;
 
 
@@ -184,8 +185,7 @@ public class Main {
                         if (arg[1].equals("lzw")) {
                             compressLZW();
                         } else if (arg[1].equals("huffman")) {
-                            //compresshuffman();
-                            System.out.println("A função de compactação utilizando o o algoritmo Huffman ainda não foi desenvolvida hehe");
+                            compresshuffman();
                         } else {
                             System.out.println("Opção não contemplada no simpledb\nPara mais informações utilize a opção --help");
                         }
@@ -194,8 +194,7 @@ public class Main {
                         if (arg[1].equals("lzw")) {
                             decompressLZW();
                         } else if (arg[1].equals("huffman")) {
-                            //decompresshuffman();
-                            System.out.println("A função de descompactação utilizando o o algoritmo Huffman ainda não foi desenvolvida ");
+                            decompresshuffman();
                         } else {
                             System.out.println("Opção não contemplada no simpledb\nPara mais informações utilize a opção --help");
                         }

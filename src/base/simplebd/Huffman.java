@@ -141,7 +141,7 @@ class Huffman {
     /*Metodo para decodificar o arquivo comprimido*/
     public static void decompresshuffman() {
         BinaryIn in2 = new BinaryIn("simpledb.huffman");
-        BinaryOut out2 = new BinaryOut("simpledbdec.db");
+        BinaryOut out2 = new BinaryOut("simpledb.db");
 
         NoTrie trie = leTrie(in2);                                       // carrega os bits do arquivo para descompressao
         int n = in2.readInt();                                           //Tamanho da mensagem armazenada no arquivo
