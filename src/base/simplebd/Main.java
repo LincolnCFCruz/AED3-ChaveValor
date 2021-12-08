@@ -71,7 +71,6 @@ public class Main {
         //boolean flag = true, menuTeste = true;
         //String value;
 
-
         //Scanner entrada = new Scanner(System.in);
         HashExtensivel hash = new HashExtensivel();
         CRUD crud = new CRUD();
@@ -101,7 +100,6 @@ public class Main {
                         "  --decompress=[huffman|lzw]\n      Descompacta os registros do banco de dados usando o algoritmo de Codificação de Huffman ou o Algoritmo de Compressão LZW. \n");
             } else {
                 String[] arg = args[0].split("=");
-                System.out.println(arg[0]);
                 if (arg.length == 1) {
                     System.out.println("Faltando argumentos para as operações. \nPara mais informações de uso, utilize a opção --help");
                 }
@@ -185,7 +183,6 @@ public class Main {
                     case "--compress":
                         if (arg[1].equals("lzw")) {
                             compressLZW();
-                            System.out.println("A função de compactação utilizando o o algoritmo LZW ainda não foi desenvolvida hehe");
                         } else if (arg[1].equals("huffman")) {
                             //compresshuffman();
                             System.out.println("A função de compactação utilizando o o algoritmo Huffman ainda não foi desenvolvida hehe");
@@ -196,7 +193,6 @@ public class Main {
                     case "--decompress":
                         if (arg[1].equals("lzw")) {
                             decompressLZW();
-                            System.out.println("A função de descompactação utilizando o o algoritmo LZW ainda não foi desenvolvida ");
                         } else if (arg[1].equals("huffman")) {
                             //decompresshuffman();
                             System.out.println("A função de descompactação utilizando o o algoritmo Huffman ainda não foi desenvolvida ");

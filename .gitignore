@@ -4,3 +4,4 @@ production
 *.lzw
 *.huffman
 *.class
+*.db
