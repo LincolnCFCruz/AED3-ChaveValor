@@ -116,10 +116,10 @@ public class Lzw {
         String rr="";
         int n=0;
         String [] split = r.split(";");
-        for(int i=0;i<split.length; i+=3) {
-            rr=rr.concat(split[i] + ";" + split[i+1] + ";" + split[i+2] + "\n");
+        rr=rr.concat(split[0] + ";" + split[1] + ";" + split[2]);
+        for(int i=3;i<split.length; i+=3) {
+            rr=rr.concat("\n" + split[i] + ";" + split[i+1] + ";" + split[i+2] );
         }
-        System.out.println(rr);
         bw.write(rr.toString());
         bw.close();
     }

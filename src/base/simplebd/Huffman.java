@@ -1,22 +1,8 @@
+package base.simplebd;
+
 import java.util.PriorityQueue;
 
 class Huffman {
-
-    public static void main(String[] args) {
-
-        if (args[0].equals("-")) {
-
-            compresshuffman();
-
-        } else if (args[0].equals("+")) {
-
-            decompresshuffman();
-
-
-        } else throw new IllegalArgumentException("Illegal command line argument");
-
-    }
-
     private static int R = 256;                             // tamanho do dicionário de caracteres para comparacao (ASCII extendido)
 
 

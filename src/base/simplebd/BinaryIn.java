@@ -1,4 +1,4 @@
-/******************************************************************************
+package base.simplebd; /******************************************************************************
  *  Compilation:  javac BinaryIn.java
  *  Execution:    java BinaryIn input output
  *  Dependencies: none             

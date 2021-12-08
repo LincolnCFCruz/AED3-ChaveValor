@@ -1,3 +1,4 @@
+package base.simplebd;
 /******************************************************************************
  *  Compilation:  javac BinaryOut.java
  *  Execution:    java BinaryOut
