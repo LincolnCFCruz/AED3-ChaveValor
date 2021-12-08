@@ -3,10 +3,10 @@ package base.simplebd;
 import java.io.IOException;
 import java.util.*;
 
-import static base.simplebd.Lzw.*;
+//import static base.simplebd.Lzw.*;
 
 public class Main {
-    public static void menu (){
+    public static void menu() {
         System.out.println("Opcao 1: Insert");
         System.out.println("Opcao 2: Remove");
         System.out.println("Opcao 3: Search");
@@ -16,7 +16,7 @@ public class Main {
     }
 
     public static void test() {
-        int option,k,sK;
+        int option, k, sK;
         long pos;
         boolean flag = true, menuTeste = true;
         String value;
@@ -26,9 +26,9 @@ public class Main {
         CRUD crud = new CRUD();
 
         hash.insert();
-        hash.ordenaHash();
+        ////hash.ordenaHash();
 
-        if(menuTeste){
+        if (menuTeste) {
             menu();
         }
 
@@ -42,14 +42,17 @@ public class Main {
                     hash.insert();
                     break;
                 case 2:
-                    hash.removeHash(k=entrada.nextInt());
+                    hash.removeHash(k = entrada.nextInt());
                     crud.remove(k);
                     break;
                 case 3:
-                    //hash.searchHash(5);
-                   // Long pos1 = Long.valueOf(64);
-                   // crud.search(pos1);
-                    hash.listIdxMaior(5);
+
+                    hash.insertSK();
+                    System.out.println("  \n" );
+
+                    hash.listIdxMenorIgual(5,2);
+
+
                     break;
                 case 4:
                     crud.update(k = entrada.nextInt(), sK = entrada.nextInt(), value = entrada.next());
@@ -72,12 +75,11 @@ public class Main {
         int teste = sc.nextInt();
 
 
-        if(teste==1){
+        if (teste == 1) {
             test();
-        }
-        else{
+        } else {
 
-            if(args.length==0 || args[0].equals("--help")){
+            if (args.length == 0 || args[0].equals("--help")) {
                 System.out.println("simpledb [cmd]\n" +
                         "  --insert=<sort-key,value> \n      Insere um objeto no banco de dados.\n" +
                         "  --remove=<key>\n      Remove do banco de dados o objeto identificado pela chave key.\n" +
@@ -93,21 +95,20 @@ public class Main {
                         "      key<=X: objetos que possuem chave de ordenação menor ou igual que X.\n" +
                         "  --compress=[huffman|lzw]\n      Compacta os registros do banco de dados usando o algoritmo de Codificação de Huffman ou o Algoritmo de Compressão LZW. \n" +
                         "  --decompress=[huffman|lzw]\n      Descompacta os registros do banco de dados usando o algoritmo de Codificação de Huffman ou o Algoritmo de Compressão LZW. \n");
-            } else{
-                String[] arg= args[0].split("=");
+            } else {
+                String[] arg = args[0].split("=");
                 System.out.println(arg[0]);
-                if(arg.length==1){
+                if (arg.length == 1) {
                     System.out.println("Faltando argumentos para as operações. \nPara mais informações de uso, utilize a opção --help");
                 }
-                switch (arg[0]){
+                switch (arg[0]) {
                     case "--insert":
-                        String[] insertArg= arg[1].split(",");
-                        if(insertArg.length==2) {
+                        String[] insertArg = arg[1].split(",");
+                        if (insertArg.length == 2) {
 
                             //crud.insert(insertArg[0],insertArg[1]);   // sort-key,value
                             System.out.println("A função insert ainda não foi desenvolvida hehe");
-                        }
-                        else{
+                        } else {
                             System.out.println("Número de argumentos incorreto para a operação. \nPara mais informações de uso, utilize a opção --help");
                         }
                         break;
@@ -120,95 +121,80 @@ public class Main {
                         System.out.println("A função search ainda não foi desenvolvida hehe");
                         break;
                     case "--update":
-                        String[] updateArg= arg[1].split(",");
-                        if(updateArg.length==3){
+                        String[] updateArg = arg[1].split(",");
+                        if (updateArg.length == 3) {
                             // crud.update(updateArg[0],updateArg[1],updateArg[2]); //key,sort-key,value
                             System.out.println("A função update ainda não foi desenvolvida hehe");
-                        }
-                        else{
+                        } else {
                             System.out.println("Número de argumentos incorreto para a operação. \nPara mais informações de uso, utilize a opção --help");
                         }
 
                         break;
                     case "--list":
                         String[] n;
-                        if(arg[1].matches("key<[0-9]+")){
-                            n=arg[1].split("<");
+                        if (arg[1].matches("key<[0-9]+")) {
+                            n = arg[1].split("<");
                             // listmenorque(n[1]);
                             System.out.println("A função list '<' ainda não foi desenvolvida hehe");
-                        }
-                        else if(arg[1].matches("key>[0-9]+")){
-                            n=arg[1].split(">");
+                        } else if (arg[1].matches("key>[0-9]+")) {
+                            n = arg[1].split(">");
                             // listmaiorque(n[1]);
                             System.out.println("A função list '>' ainda não foi desenvolvida hehe");
-                        }
-                        else if(arg.length==3 && arg[1].matches("key") && arg[2].matches("[0-9]+")){ //lembrar que o '=' foi "comido" no split
+                        } else if (arg.length == 3 && arg[1].matches("key") && arg[2].matches("[0-9]+")) { //lembrar que o '=' foi "comido" no split
                             // listigual(arg[2]);
                             System.out.println("A função list '=' ainda não foi desenvolvida hehe");
-                        }
-                        else if(arg.length==3 && arg[1].matches("key<") && arg[2].matches("[0-9]+")){ //lembrar que o '=' foi "comido" no split
+                        } else if (arg.length == 3 && arg[1].matches("key<") && arg[2].matches("[0-9]+")) { //lembrar que o '=' foi "comido" no split
                             //listmenorigual(arg[2]);
                             System.out.println("A função list '<=' ainda não foi desenvolvida hehe");
-                        }
-                        else if(arg.length==3 && arg[1].matches("key>") && arg[2].matches("[0-9]+")){ //lembrar que o '=' foi "comido" no split
+                        } else if (arg.length == 3 && arg[1].matches("key>") && arg[2].matches("[0-9]+")) { //lembrar que o '=' foi "comido" no split
                             //listmaiorigual(arg[2]);
                             System.out.println("A função list '>=' ainda não foi desenvolvida hehe");
-                        }
-                        else{
+                        } else {
                             System.out.println("Opção não contemplada no simpledb\nPara mais informações utilize a opção --help");
                         }
                         break;
                     case "--reverse-list":
-                        if(arg[1].matches("key<[0-9]+")){
-                            n=arg[1].split("<");
+                        if (arg[1].matches("key<[0-9]+")) {
+                            n = arg[1].split("<");
                             // reverselistmenorque(n[1]);
                             System.out.println("A função reverse-list '<' ainda não foi desenvolvida hehe");
-                        }
-                        else if(arg[1].matches("key+>[0-9]+")){
-                            n=arg[1].split(">");
+                        } else if (arg[1].matches("key+>[0-9]+")) {
+                            n = arg[1].split(">");
                             // reverselistmaiorque(n[1]);
                             System.out.println("A função reverse-list '>' ainda não foi desenvolvida hehe");
-                        }
-                        else if(arg[1].matches("key") && arg[2].matches("[0-9]+")){ //lembrar que o '=' foi "comido" no split
+                        } else if (arg[1].matches("key") && arg[2].matches("[0-9]+")) { //lembrar que o '=' foi "comido" no split
                             // reverselistigual(arg[2]);
                             System.out.println("A função reverse-list '=' ainda não foi desenvolvida hehe");
-                        }
-                        else if(arg.length==3 && arg[1].matches("key<") && arg[2].matches("[0-9]+")){ //lembrar que o '=' foi "comido" no split
+                        } else if (arg.length == 3 && arg[1].matches("key<") && arg[2].matches("[0-9]+")) { //lembrar que o '=' foi "comido" no split
                             System.out.println("A função reverse-list '<=' ainda não foi desenvolvida hehe");
                             //reverselistmenorigual(arg[2]);
-                        }
-                        else if(arg.length==3 && arg[1].matches("key+>") && arg[2].matches("[0-9]+")){ //lembrar que o '=' foi "comido" no split
+                        } else if (arg.length == 3 && arg[1].matches("key+>") && arg[2].matches("[0-9]+")) { //lembrar que o '=' foi "comido" no split
                             //reverselistmaiorigual(arg[2]);
                             System.out.println("A função reverse-list '>=' ainda não foi desenvolvida hehe");
-                        }
-                        else{
+                        } else {
                             System.out.println("Opção não contemplada no simpledb\nPara mais informações utilize a opção --help");
                         }
 
                         break;
                     case "--compress":
-                        if(arg[1].equals("lzw") ){
-                            compressLZW();
+                        if (arg[1].equals("lzw")) {
+                          //  compressLZW();
                             System.out.println("A função de compactação utilizando o o algoritmo LZW ainda não foi desenvolvida hehe");
-                        }
-                        else if(arg[1].equals("huffman")){
+                        } else if (arg[1].equals("huffman")) {
                             //compresshuffman();
                             System.out.println("A função de compactação utilizando o o algoritmo Huffman ainda não foi desenvolvida hehe");
-                        }
-                        else{
+                        } else {
                             System.out.println("Opção não contemplada no simpledb\nPara mais informações utilize a opção --help");
                         }
                         break;
                     case "--decompress":
-                        if(arg[1].equals("lzw") ){
-                            decompressLZW();
+                        if (arg[1].equals("lzw")) {
+                            //decompressLZW();
                             System.out.println("A função de descompactação utilizando o o algoritmo LZW ainda não foi desenvolvida ");
-                        }
-                        else if(arg[1].equals("huffman")){
+                        } else if (arg[1].equals("huffman")) {
                             //decompresshuffman();
                             System.out.println("A função de descompactação utilizando o o algoritmo Huffman ainda não foi desenvolvida ");
-                        }
-                        else{
+                        } else {
                             System.out.println("Opção não contemplada no simpledb\nPara mais informações utilize a opção --help");
                         }
                         break;
@@ -219,3 +205,4 @@ public class Main {
             }
         }
     }
+}
