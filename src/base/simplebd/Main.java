@@ -24,6 +24,9 @@ public class Main {
         Scanner entrada = new Scanner(System.in);
         HashExtensivel hash = new HashExtensivel();
         CRUD crud = new CRUD();
+        selectionSort select = new selectionSort();
+
+        select.lerArquivo();
 
         hash.insert();
         ////hash.ordenaHash();
