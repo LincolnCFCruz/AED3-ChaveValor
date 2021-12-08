@@ -188,7 +188,7 @@ public class Main {
                             System.out.println("A função de compactação utilizando o o algoritmo LZW ainda não foi desenvolvida hehe");
                         }
                         else if(arg[1].equals("huffman")){
-                            //compresshuffman();
+                            compresshuffman();
                             System.out.println("A função de compactação utilizando o o algoritmo Huffman ainda não foi desenvolvida hehe");
                         }
                         else{
@@ -201,7 +201,7 @@ public class Main {
                             System.out.println("A função de descompactação utilizando o o algoritmo LZW ainda não foi desenvolvida ");
                         }
                         else if(arg[1].equals("huffman")){
-                            //decompresshuffman();
+                            decompresshuffman();
                             System.out.println("A função de descompactação utilizando o o algoritmo Huffman ainda não foi desenvolvida ");
                         }
                         else{
