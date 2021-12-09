@@ -73,7 +73,7 @@ são lidos do arquivo simple.db.
   	Descompacta os registros do banco de dados usando o algoritmo de Codificação de
 Huffman ou o Algoritmo de Compressão LZW. O banco de dados descompactado é
 lido de um arquivo nomeado ``simpledb.[huffman|lzw]``. Objetos descompactados
-são escritos no arquivo ``simple.db``
+são escritos no arquivo ``simpledb.db``
     
 
 
