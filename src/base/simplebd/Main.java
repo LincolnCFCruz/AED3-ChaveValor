@@ -110,8 +110,7 @@ public class Main {
                         String[] insertArg = arg[1].split(",");
                         if (insertArg.length == 2) {
                             crud.insert(Integer.valueOf(insertArg[0]),insertArg[1]); // sort-key,value
-                            //crud.insert(sK = entrada.nextInt(), value = entrada.next());
-                            //hash.insert();
+                            hash.insert();
                         } else {
                             System.out.println("Número de argumentos incorreto para a operação. \nPara mais informações de uso, utilize a opção --help");
                         }
@@ -119,11 +118,8 @@ public class Main {
                     case "--remove":
                         crud.remove(Integer.valueOf(arg[1])); // arg[1] -> key
                         hash.removeHash(Integer.valueOf(arg[1]));
-                        //hash.removeHash(k = entrada.nextInt());
-                        //crud.remove(k);
                         break;
                     case "--search":
-                        //crud.search(hash.searchHash(k = entrada.nextInt()));
                         crud.search(hash.searchHash(Integer.valueOf(arg[1]))); // arg[1] -> key
                         break;
                     case "--update":
