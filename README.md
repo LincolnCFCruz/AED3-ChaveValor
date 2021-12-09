@@ -28,9 +28,14 @@ export PATH=$PATH:$JAVA_HOME/bin
 source ~/.bashrc
 echo $JAVA_HOME
 ```
+### Clone este repositório:
+```
+git clone https://github.com/LincolnCFCruz/BD-ChaveValor.git
+```
+
 ### Compilar o Código:
 ```
-cd src
+cd  BD-ChaveValor/src
 javac -Xlint:unchecked  base/simplebd/Main.java base/simplebd/Lzw.java base/simplebd/HashExtensivel.java base/simplebd/CRUD.java base/simplebd/selectionSort.java
 ```
 ### Rodar o código:
