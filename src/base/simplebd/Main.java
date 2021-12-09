@@ -18,7 +18,7 @@ public class Main {
         HashExtensivel hash = new HashExtensivel();
         CRUD crud = new CRUD();
         selectionSort select = new selectionSort();
-        
+
         //test();
 
 
@@ -28,14 +28,15 @@ public class Main {
                     "  --remove=<key>\n      Remove do banco de dados o objeto identificado pela chave key.\n" +
                     "  --search=<key>\n      Busca no banco de dados objeto identificado pela chave key.\n" +
                     "  --update=<key,sort-key,value>\n      Atualiza o objeto que e identificado pela chave key. \n" +
-                    "  --list=<expr>\n      Lista em ordem crescente todos os objetos que possam uma chave de ordenação que atenda aos critérios especificados pela expressão 'expr'.\n" +
-                    "  --reverse-list=<expr>\n      Lista em ordem decrescente  todos os objetos que possam uma chave de ordenação que atenda aos critérios especificados pela expressão 'expr'.\n" +
-                    "  * A expressão 'expr' deve aceitar qualquer operação logica simples envolvendo a chave:\n" +
-                    "      key>X: objetos que possuem chave de ordenação maior que X.\n" +
-                    "      key<X: objetos que possuem chave de ordenação menor que X.\n" +
-                    "      key=X: objetos que possuem chave ordenação igual a X.\n" +
-                    "      key>=X: objetos que possuem chave de ordenação maior ou igual que X.\n" +
-                    "      key<=X: objetos que possuem chave de ordenação menor ou igual que X.\n" +
+                    "  --list=\"<expr>\"\n      Lista em ordem crescente todos os objetos que possam uma chave de ordenação que atenda aos critérios especificados pela expressão 'expr'.\n" +
+                    "  --reverse-list=\"<expr>\"\n      Lista em ordem decrescente  todos os objetos que possam uma chave de ordenação que atenda aos critérios especificados pela expressão 'expr'.\n" +
+                    "    * A expressão 'expr' deve aceitar qualquer operação logica simples envolvendo a chave:\n" +
+                    "        key>X: objetos que possuem chave de ordenação maior que X.\n" +
+                    "        key<X: objetos que possuem chave de ordenação menor que X.\n" +
+                    "        key=X: objetos que possuem chave ordenação igual a X.\n" +
+                    "        key>=X: objetos que possuem chave de ordenação maior ou igual que X.\n" +
+                    "        key<=X: objetos que possuem chave de ordenação menor ou igual que X.\n" +
+                    "    (expr deve estar contido de aspas pois os caracteres < e > são usados no linux como redirecionamento de saída) \n" +
                     "  --compress=[huffman|lzw]\n      Compacta os registros do banco de dados usando o algoritmo de Codificação de Huffman ou o Algoritmo de Compressão LZW. \n" +
                     "  --decompress=[huffman|lzw]\n      Descompacta os registros do banco de dados usando o algoritmo de Codificação de Huffman ou o Algoritmo de Compressão LZW. \n");
         } else {
