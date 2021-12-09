@@ -18,7 +18,7 @@ Código desenvolvido como projeto para a disciplina Arlgoritmos e Estrutura de D
 ## Estrutura Base
 
 ## Instalação
-###Instalar o JDK:
+### Instalar o JDK:
 ```
 wget https://download.java.net/java/GA/jdk17/0d483333a00540d886896bac774ff48b/35/GPL/openjdk-17_linux-x64_bin.tar.gz
 sudo tar xvf openjdk-17_linux-x64_bin.tar.gz
@@ -32,13 +32,14 @@ echo $JAVA_HOME
 ```
 cd src
 javac -Xlint:unchecked  base/simplebd/Main.java base/simplebd/Lzw.java base/simplebd/HashExtensivel.java base/simplebd/CRUD.java base/simplebd/selectionSort.java
+```
+### Rodar o código:
+``` 
 java base.simplebd.Main
 ```
 
-
-
 ## CLI
-``simpledb [cmd]``
+``java base.simplebd.Main [cmd]``
 
 -  ``--insert=<sort-key,value>``
 
@@ -73,7 +74,7 @@ são lidos do arquivo simple.db.
   	Descompacta os registros do banco de dados usando o algoritmo de Codificação de
 Huffman ou o Algoritmo de Compressão LZW. O banco de dados descompactado é
 lido de um arquivo nomeado ``simpledb.[huffman|lzw]``. Objetos descompactados
-são escritos no arquivo ``simple.db``
+são escritos no arquivo ``simpledb.db``
     
 
 
