@@ -62,13 +62,14 @@ java base.simplebd.Main
 -  ``--list="<expr>" | --reverse-list="<expr>"``
 
   	Lista em ordem crescente (``--list``) ou em ordem decrescente (``--reverse-list``)
-todos os objetos que possam uma chave de ordenação que atenda aos critérios especificados pela expressão ``expr``. Objetos são buscados no arquivo ``simpledb.db``. A
+todos os objetos que possam uma chave de ordenação que atenda aos critérios especificados pela expressão ``expr`` (``expr`` deve estar contido entre aspas pois os carcters '<' e '>' são usados no linux como redirecionamento de saída). Objetos são buscados no arquivo ``simpledb.db``. A
 expressão expr deve aceitar qualquer operação lógica simples envolvendo a chave:
     - ``key>X``: objetos que possuem chave de ordenação maior que ``X``.
     - ``key<X``: objetos que possuem chave de ordenação menor que ``X``.
     - ``key=X``: objetos que possuem chave ordenação igual a ``X``.
     - ``key>=X``: objetos que possuem chave de ordenação maior ou igual que ``X``.
     - ``key<=X``: objetos que possuem chave de ordenação menor ou igual que ``X``.
+    
 -  ``--compress=[huffman|lzw]``
 
   	Compacta os registros do banco de dados usando o algoritmo de Codificação de Huffman ou o Algoritmo de Compressão LZW. O banco de dados compactado é salvo em
