@@ -43,7 +43,6 @@ public class CRUD {
                             maior = menor;
                         }
                         index = maior+1;
-                        System.out.println(index);
                         idx = idx.valueOf(index);
                     }
                 } else {
@@ -62,14 +61,15 @@ public class CRUD {
             if (index != 1) {
                 bw.write("\n" + newContent);
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            try {
+            try{
                 br.close();
                 bw.close();
                 fwArquivo.close();
-            }catch (IOException e){
+            } catch (IOException e){
                 e.printStackTrace();
             }
         }
@@ -123,11 +123,19 @@ public class CRUD {
 
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                my_reader.close();
+                my_writer.close();
+                fwArquivo.close();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
         }
     }
 
     public static void search (Long pos) {
-        RandomAccessFile br2 = null;
+        RandomAccessFile br = null;
         String line;
         String key;
         String sortKey;
@@ -136,11 +144,11 @@ public class CRUD {
         // Busca e leitura do arquivo a partir da posição definida pela hash.
 
         try{
-            br2 = new RandomAccessFile("simpledb.db", "rw");
+            br = new RandomAccessFile("simpledb.db", "rw");
 
-            br2.seek(pos);
+            br.seek(pos);
 
-            line = br2.readLine();
+            line = br.readLine();
             String[] trimmed = line.split(";");
             key = trimmed [0];
             sortKey = trimmed[1];
@@ -152,30 +160,31 @@ public class CRUD {
             e.printStackTrace();
         } finally {
             try {
-                br2.close();
-            } catch (IOException e) {
+                br.close();
+            } catch (IOException e){
                 e.printStackTrace();
             }
         }
     }
 
     public static void update (Integer key, Integer newsortKey, String value) {
-        BufferedReader br = null;
-        FileWriter writer = null;
-
         // Recebe os dados para alteração.
         // Armazena o conteudo dentro de uma string e substitui o valor desejado.
 
+        BufferedReader br = null;
+        FileWriter writer = null;
+
         try {
             br = new BufferedReader(new FileReader("simpledb.db"));
+
             String line;
             String newString = "";
             String oldString = "";
             String oldContent = "";
             String updateLine = String.valueOf(key);
 
-            while ((line = br.readLine()) != null) {
-                if(!line.equals("")) {
+            while((line = br.readLine()) != null) {
+                if (!line.equals("")) {
                     oldContent = oldContent + line + System.lineSeparator();
                     String[] trimmed = line.split(";");
                     String index = trimmed[0];
@@ -190,15 +199,24 @@ public class CRUD {
                         valueUpdate = value;
 
                         newString = key + ";" + typeUpdate + ";" + valueUpdate;
+
                     }
                 }
-
-                String newContent = oldContent.replaceAll(oldString,newString);
-                writer = new FileWriter(("simpledb.db"));
-                writer.write(newContent);
             }
+            String newContent = oldContent.replaceAll(oldString,newString);
+
+            writer = new FileWriter(("simpledb.db"));
+            writer.write(newContent);
+
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                br.close();
+                writer.close();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
         }
     }
 

@@ -5,6 +5,7 @@ import java.util.*;
 
 public class selectionSort {
     public static void selectionCode(String[] arr, int n) {
+        BufferedWriter bw =null;
         for(int i = 0; i < n - 1; i++) {
             int min_index = i;
             String minStr = arr[i];
@@ -30,30 +31,35 @@ public class selectionSort {
         int count =0;
 
         try {
-            BufferedWriter br15 = new BufferedWriter(new FileWriter("simpledb.db"));
+            bw = new BufferedWriter(new FileWriter("simpledb.db"));
 
-            if (op == 1) {
+            if (op == 1) { //Crescente
                 for (int k = 0; k < arr.length; k++) {
                     if(count == 0){
-                        br15.write(arr[k]);
+                        bw.write(arr[k]);
                     } else {
-                        br15.write("\n" + arr[k]);
+                        bw.write("\n" + arr[k]);
                     }
                     count++;
                 }
-            } else if (op == 2) {
+            } else if (op == 2) { //Decrescente
                 for (int k = arr.length - 1; k >= 0; k--) {
                     if(count == 0){
-                        br15.write(arr[k]);
+                        bw.write(arr[k]);
                     } else {
-                        br15.write("\n" + arr[k]);
+                        bw.write("\n" + arr[k]);
                     }
                     count++;
                 }
             }
-            br15.close();
         } catch (IOException e){
             e.printStackTrace();
+        } finally {
+            try {
+                bw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -78,12 +84,16 @@ public class selectionSort {
 
             String[] trimmed = Conteudo.split(",");
 
-            br.close();
-
             selectionCode(trimmed,contador);
 
         }catch (IOException e){
             e.printStackTrace();
+        } finally {
+            try {
+                br.close();
+            } catch (IOException e){
+                e.printStackTrace();
+            }
         }
     }
 }
