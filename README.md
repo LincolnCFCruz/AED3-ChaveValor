@@ -32,13 +32,14 @@ echo $JAVA_HOME
 ```
 cd src
 javac -Xlint:unchecked  base/simplebd/Main.java base/simplebd/Lzw.java base/simplebd/HashExtensivel.java base/simplebd/CRUD.java base/simplebd/selectionSort.java
+```
+### Rodar o código:
+``` 
 java base.simplebd.Main
 ```
 
-
-
 ## CLI
-``simpledb [cmd]``
+``java base.simplebd.Main [cmd]``
 
 -  ``--insert=<sort-key,value>``
 
