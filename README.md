@@ -35,7 +35,7 @@ git clone https://github.com/LincolnCFCruz/BD-ChaveValor.git
 
 ### Compilar o Código:
 ```
-cd  BD-ChaveValor/src
+cd BD-ChaveValor/src
 make
 ```
 ### Rodar o código:
