@@ -41,7 +41,7 @@ public class Main {
             switch (option) {
                 case 1:
                     crud.insert(sK = entrada.nextInt(), value = entrada.next());
-                    hash.insert();
+                    //hash.insert();
                     break;
                 case 2:
                     hash.removeHash(k = entrada.nextInt());
@@ -140,21 +140,21 @@ public class Main {
                         String[] n;
                         if (arg[1].matches("key<[0-9]+")) {
                             n = arg[1].split("<");
+                            hash.listIdxMenor(Integer.valueOf(n[1]),1);
                             // listmenorque(n[1]);
-                            System.out.println("A função list '<' ainda não foi desenvolvida hehe");
                         } else if (arg[1].matches("key>[0-9]+")) {
                             n = arg[1].split(">");
+                            hash.listIdxMaior(Integer.valueOf(n[1]), 1);
                             // listmaiorque(n[1]);
-                            System.out.println("A função list '>' ainda não foi desenvolvida hehe");
-                        } else if (arg.length == 3 && arg[1].matches("key") && arg[2].matches("[0-9]+")) { //lembrar que o '=' foi "comido" no split
+                         } else if (arg.length == 3 && arg[1].matches("key") && arg[2].matches("[0-9]+")) { //lembrar que o '=' foi "comido" no split
                             // listigual(arg[2]);
-                            System.out.println("A função list '=' ainda não foi desenvolvida hehe");
+                            hash.listIdxEqual(Integer.valueOf(arg[2]),1);
                         } else if (arg.length == 3 && arg[1].matches("key<") && arg[2].matches("[0-9]+")) { //lembrar que o '=' foi "comido" no split
                             //listmenorigual(arg[2]);
-                            System.out.println("A função list '<=' ainda não foi desenvolvida hehe");
+                            hash.listIdxMenorIgual(Integer.valueOf(arg[2]),1);
                         } else if (arg.length == 3 && arg[1].matches("key>") && arg[2].matches("[0-9]+")) { //lembrar que o '=' foi "comido" no split
                             //listmaiorigual(arg[2]);
-                            System.out.println("A função list '>=' ainda não foi desenvolvida hehe");
+                            hash.listIdxMaiorIgual(Integer.valueOf(arg[2]),1);
                         } else {
                             System.out.println("Opção não contemplada no simpledb\nPara mais informações utilize a opção --help");
                         }
@@ -162,21 +162,21 @@ public class Main {
                     case "--reverse-list":
                         if (arg[1].matches("key<[0-9]+")) {
                             n = arg[1].split("<");
+                            hash.listIdxMenor(Integer.valueOf(n[1]),2);
                             // reverselistmenorque(n[1]);
-                            System.out.println("A função reverse-list '<' ainda não foi desenvolvida hehe");
                         } else if (arg[1].matches("key+>[0-9]+")) {
                             n = arg[1].split(">");
                             // reverselistmaiorque(n[1]);
-                            System.out.println("A função reverse-list '>' ainda não foi desenvolvida hehe");
+                            hash.listIdxMaior(Integer.valueOf(n[1]), 2);
                         } else if (arg[1].matches("key") && arg[2].matches("[0-9]+")) { //lembrar que o '=' foi "comido" no split
                             // reverselistigual(arg[2]);
-                            System.out.println("A função reverse-list '=' ainda não foi desenvolvida hehe");
+                            hash.listIdxEqual(Integer.valueOf(arg[2]),2);
                         } else if (arg.length == 3 && arg[1].matches("key<") && arg[2].matches("[0-9]+")) { //lembrar que o '=' foi "comido" no split
-                            System.out.println("A função reverse-list '<=' ainda não foi desenvolvida hehe");
                             //reverselistmenorigual(arg[2]);
+                            hash.listIdxMenorIgual(Integer.valueOf(arg[2]),2);
                         } else if (arg.length == 3 && arg[1].matches("key+>") && arg[2].matches("[0-9]+")) { //lembrar que o '=' foi "comido" no split
                             //reverselistmaiorigual(arg[2]);
-                            System.out.println("A função reverse-list '>=' ainda não foi desenvolvida hehe");
+                            hash.listIdxMaiorIgual(Integer.valueOf(arg[2]),2);
                         } else {
                             System.out.println("Opção não contemplada no simpledb\nPara mais informações utilize a opção --help");
                         }
