@@ -26,7 +26,6 @@ sudo mv jdk-17 /opt/
 export JAVA_HOME=/opt/jdk-17
 export PATH=$PATH:$JAVA_HOME/bin
 source ~/.bashrc
-echo $JAVA_HOME
 ```
 ### Clone este repositório:
 ```
