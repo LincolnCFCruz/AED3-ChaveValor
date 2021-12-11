@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class selectionSort {
-    public static void selectionCode(String[] arr, int n) {
+    public static void selectionCode(String[] arr, int n,int op) {
         BufferedWriter bw =null;
         for(int i = 0; i < n - 1; i++) {
             int min_index = i;
@@ -26,8 +26,6 @@ public class selectionSort {
             }
         }
 
-        Scanner entrada = new Scanner(System.in);
-        int op = entrada.nextInt();
         int count =0;
 
         try {
@@ -63,7 +61,7 @@ public class selectionSort {
         }
     }
 
-    public static void lerArquivo (){
+    public static void lerArquivo (int op){
         BufferedReader br = null;
 
         try{
@@ -84,7 +82,7 @@ public class selectionSort {
 
             String[] trimmed = Conteudo.split(",");
 
-            selectionCode(trimmed,contador);
+            selectionCode(trimmed,contador,op);
 
         }catch (IOException e){
             e.printStackTrace();

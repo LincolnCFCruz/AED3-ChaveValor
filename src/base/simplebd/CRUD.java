@@ -4,10 +4,13 @@ import java.io.*;
 
 public class CRUD {
     public static void insert (Integer sK, String value) {
+        selectionSort org = new selectionSort();
         File fArquivo = null;
         FileWriter fwArquivo = null;
         BufferedWriter bw = null;
         BufferedReader br =  null;
+
+        org.lerArquivo(1);
 
         try {
             fArquivo = new File("simpledb.db");
@@ -22,6 +25,7 @@ public class CRUD {
             br = new BufferedReader(new FileReader("simpledb.db"));
 
             int index=1;
+            int verifica = 0;
             int menor = Integer.MAX_VALUE;
             int maior = Integer.MIN_VALUE;
             String idx = "1";
@@ -38,11 +42,21 @@ public class CRUD {
 
                     if(!idx.equals("")){
                         index = Integer.parseInt(idx);
+
+                        if ((verifica + 1) == index){
+                            verifica = index;
+                        } else if ((verifica + 1) != index){
+                            index = verifica;
+                        }
+
                         menor = index;
+
                         if (maior < menor){
                             maior = menor;
                         }
+
                         index = maior+1;
+
                         idx = idx.valueOf(index);
                     }
                 } else {
@@ -61,6 +75,8 @@ public class CRUD {
             if (index != 1) {
                 bw.write("\n" + newContent);
             }
+
+            org.lerArquivo(1);
 
         } catch (IOException e) {
             e.printStackTrace();
