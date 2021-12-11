@@ -170,7 +170,7 @@ public class CRUD {
             sortKey = trimmed[1];
             value = trimmed[2];
 
-            System.out.println(key + ";" + sortKey + ";" + value);
+            System.out.println("SK: "+ sortKey + "\nValor: " + value+"\n");
 
         } catch (IOException e) {
             e.printStackTrace();

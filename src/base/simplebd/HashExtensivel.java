@@ -40,7 +40,6 @@ public class HashExtensivel<K,V> {
             e.printStackTrace();
         }
     }
-        System.out.println(bucketSortKey);
 }//ok
 
     //cria hash com os index
@@ -77,7 +76,7 @@ public class HashExtensivel<K,V> {
                 e.printStackTrace();
             }
         }
-        System.out.println(bucket);
+
     }//ok
 
     void updateHash(Integer idx, Integer sortKey) {
@@ -94,68 +93,68 @@ public class HashExtensivel<K,V> {
             return null;
     }//ok
 
-    Long searchHashSK(Integer idx) {
 
-        Iterator<Long> j= bucketSortKey.keySet().iterator();
-        while(j.hasNext()){
-                Long chave = j.next();
-                Integer sk = bucketSortKey.get(chave);
-                if(sk==idx){
-                    return chave;
-            }
-        }
-        return null;
-    } //ok
 
     void removeHash(Integer idx){
-        System.out.println("Antes da remocao" + bucket);
         bucket.remove(idx);
-        System.out.println("Depois da remocao" + bucket);
-    }//ok
+
+    }
 
 
     // key>X: objetos que possuem chave de ordenação maior que X.
     void listIdxMaior(Integer sk, int op){
-        //ordenaHash();
         TreeMap<Long,Integer> newMap = new TreeMap<>();
         newMap.putAll(bucketSortKey);
         CRUD crud = new CRUD();
         if(op==1) {
-            for (Integer i : newMap.values()) {
-                if (i > sk) {
-                    crud.search(searchHashSK(i));
+            Iterator<Long> j= bucketSortKey.keySet().iterator();
+            while(j.hasNext()){
+                Long chave = j.next();
+                Integer skt = bucketSortKey.get(chave);
+                if (skt > sk && newMap.get(chave).equals(skt)){
+                    crud.search(chave);
                 }
             }
+
         }else if(op==2){
             TreeMap<Long,Integer> newMapR = reverseHash(bucketSortKey);
 
-            for (Integer i : newMapR.values()) {
-                if (i > sk) {
-                    crud.search(searchHashSK(i));
+            Iterator<Long> j= bucketSortKey.keySet().iterator();
+            while(j.hasNext()){
+                Long chave = j.next();
+                Integer skt = bucketSortKey.get(chave);
+                if (skt > sk && newMapR.get(chave).equals(skt)){
+                    crud.search(chave);
                 }
             }
         }
+
 
     }
     //inverte a Hash obs: usar no método list();
 
     void listIdxMenor(Integer sk, int op){
-        //ordenaHash();
         TreeMap<Long,Integer> newMap = new TreeMap<>();
         newMap.putAll(bucketSortKey);
         CRUD crud = new CRUD();
         if(op==1) {
-            for (Integer i : newMap.values()) {
-                if (i < sk) {
-                    crud.search(searchHashSK(i));
+            Iterator<Long> j= bucketSortKey.keySet().iterator();
+            while(j.hasNext()){
+                Long chave = j.next();
+                Integer skt = bucketSortKey.get(chave);
+                if (skt < sk && newMap.get(chave).equals(skt)){
+                    crud.search(chave);
                 }
             }
         }else if(op==2){
             TreeMap<Long,Integer> newMapR = reverseHash(bucketSortKey);
 
-            for (Integer i : newMapR.values()) {
-                if (i < sk) {
-                    crud.search(searchHashSK(i));
+            Iterator<Long> j= bucketSortKey.keySet().iterator();
+            while(j.hasNext()){
+                Long chave = j.next();
+                Integer skt = bucketSortKey.get(chave);
+                if (skt < sk && newMapR.get(chave).equals(skt)){
+                    crud.search(chave);
                 }
             }
         }
@@ -168,63 +167,78 @@ public class HashExtensivel<K,V> {
         CRUD crud = new CRUD();
 
         if(op==1) {
-            for (Integer i : newMap.values()) {
-
-                if (sk == i) {
-                    crud.search(searchHashSK(i));
+            Iterator<Long> j= bucketSortKey.keySet().iterator();
+            while(j.hasNext()){
+                Long chave = j.next();
+                Integer skt = bucketSortKey.get(chave);
+                if (skt == sk && newMap.get(chave).equals(skt)){
+                    crud.search(chave);
                 }
             }
         }else if(op==2){
             TreeMap<Long,Integer> newMapR = reverseHash(bucketSortKey);
 
-            for (Integer i : newMapR.values()) {
-                if (i == sk) {
-                    crud.search(searchHashSK(i));
+            Iterator<Long> j= bucketSortKey.keySet().iterator();
+            while(j.hasNext()){
+                Long chave = j.next();
+                Integer skt = bucketSortKey.get(chave);
+                if (skt == sk && newMapR.get(chave).equals(skt)){
+                    crud.search(chave);
                 }
             }
         }
 
     }
     void listIdxMenorIgual(Integer sk, int op){
-        //ordenaHash();
         TreeMap<Long,Integer> newMap = new TreeMap<>();
         newMap.putAll(bucketSortKey);
         CRUD crud = new CRUD();
         if(op==1) {
-            for (Integer i : newMap.values()) {
-                if (i <= sk) {
-                    crud.search(searchHashSK(i));
+            Iterator<Long> j= bucketSortKey.keySet().iterator();
+            while(j.hasNext()){
+                Long chave = j.next();
+                Integer skt = bucketSortKey.get(chave);
+                if (skt <= sk && newMap.get(chave).equals(skt)){
+                    crud.search(chave);
                 }
             }
         }else if(op==2){
             TreeMap<Long,Integer> newMapR = reverseHash(bucketSortKey);
 
-            for (Integer i : newMapR.values()) {
-                if (i <= sk) {
-                    crud.search(searchHashSK(i));
+            Iterator<Long> j= bucketSortKey.keySet().iterator();
+            while(j.hasNext()){
+                Long chave = j.next();
+                Integer skt = bucketSortKey.get(chave);
+                if (skt <= sk && newMapR.get(chave).equals(skt)){
+                    crud.search(chave);
                 }
             }
         }
 
     }
     void listIdxMaiorIgual(Integer sk, int op){
-        //ordenaHash();
         TreeMap<Long,Integer> newMap = new TreeMap<>();
         newMap.putAll(bucketSortKey);
         CRUD crud = new CRUD();
         if(op==1){
-            for (Integer i : newMap.values()) {
-                if (i >= sk) {
-                    crud.search(searchHashSK(i));
+            Iterator<Long> j= bucketSortKey.keySet().iterator();
+            while(j.hasNext()){
+                Long chave = j.next();
+                Integer skt = bucketSortKey.get(chave);
+                if (skt >= sk && newMap.get(chave).equals(skt)){
+                    crud.search(chave);
                 }
             }
         }else if(op==2){
 
             TreeMap<Long,Integer> newMapR = reverseHash(bucketSortKey);
 
-            for (Integer i : newMapR.values()) {
-                if (i >= sk) {
-                    crud.search(searchHashSK(i));
+            Iterator<Long> j= bucketSortKey.keySet().iterator();
+            while(j.hasNext()){
+                Long chave = j.next();
+                Integer skt = bucketSortKey.get(chave);
+                if (skt >= sk && newMapR.get(chave).equals(skt)){
+                    crud.search(chave);
                 }
             }
         }
@@ -235,7 +249,7 @@ public class HashExtensivel<K,V> {
     TreeMap reverseHash(HashMap<Long,Integer> hash){
         TreeMap<Long,Integer> newMap = new TreeMap<>(Collections.reverseOrder());
         newMap.putAll(bucketSortKey);
-       // System.out.println(newMap);
+
         return newMap;
     } //ok
 }
