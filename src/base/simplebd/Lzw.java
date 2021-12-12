@@ -10,7 +10,6 @@ public class Lzw {
         File fArquivocomp = new File("simpledb.lzw");
         FileWriter fwArquivo;
         FileWriter fwArquivocomp;
-        Scanner sc2 = null;
         BufferedWriter bw;
         BufferedReader br;
         ObjectOutputStream file = new ObjectOutputStream(new FileOutputStream("simpledb.lzw"));
@@ -33,7 +32,6 @@ public class Lzw {
             text = text.concat(line);
             text = text.concat(";");
         }
-        //System.out.println(text);
         int dictam = 256;
         Map<String, Integer> dic = new HashMap<String, Integer>();
         for (int i = 0; i < 256; i++) {
@@ -56,7 +54,6 @@ public class Lzw {
         if (!w.equals("")) {
             result.add(dic.get(w));
         }
-        //bw.write(result.toString());
         file.writeObject(result.toString());
         br.close();
         bw.close();
@@ -73,7 +70,6 @@ public class Lzw {
         String text = "";
         Map<Integer, String> dic = new HashMap<Integer, String>();
         InputStream inputStream = new FileInputStream(inputFile);
-        String line;
 
         fArquivo = new File("simpledb.db");
         fwArquivo = new FileWriter(fArquivo);
@@ -86,12 +82,10 @@ public class Lzw {
         }
         text = text.substring(7);
         text = text.substring(0, text.length() - 1);
-        System.out.println(text);
         for (int i = 0; i < 256; i++)
             dic.put(i, "" + (char) i);
         String[] texto = text.split(", ");
         List<Integer> compressed = new ArrayList<Integer>();
-        //System.out.println(texto.length);
         for (int i = 0; i < texto.length; i++) {
             compressed.add(Integer.parseInt(texto[i]));
         }
@@ -111,10 +105,8 @@ public class Lzw {
 
             w = entry;
         }
-        //System.out.println(result.toString());
         String r=result.toString();
         String rr="";
-        int n=0;
         String [] split = r.split(";");
         rr=rr.concat(split[0] + ";" + split[1] + ";" + split[2]);
         for(int i=3;i<split.length; i+=3) {
