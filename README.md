@@ -5,6 +5,7 @@
 - [Estrutura Base](https://github.com//LincolnCFCruz/BD-ChaveValor#estrutura-base)
 - [Instalação](https://github.com/LincolnCFCruz/BD-ChaveValor/blob/main/README.md#instala%C3%A7%C3%A3o)
 - [CLI](https://github.com/LincolnCFCruz/BD-ChaveValor#cli)
+- [Diagrama de Classes](https://miro.com/app/board/uXjVObB9lm4=/?invite_link_id=625765856058)
 
 ## Desenvolvedores:
 - Gabriel França Oliveira | [GabrielFOliveira](https://github.com/GabrielFOliveira)
