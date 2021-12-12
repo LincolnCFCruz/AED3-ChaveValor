@@ -11,7 +11,7 @@ public class CRUD {
         FileWriter fwArquivo = null;
         BufferedWriter bw = null;
         BufferedReader br =  null;
-        int operador=2;
+        int operador = 1;
 
         //O arquivo é organizado para verificação de index's que estão faltando no arquivo.
         //Pode ser utilizado dois tipos de ordenação, sendo o primeiro o selection sort
