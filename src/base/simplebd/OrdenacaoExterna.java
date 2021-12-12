@@ -1,110 +1,278 @@
-import java.util.PriorityQueue;
+
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Arrays;
 
 
 public class OrdenacaoExterna {
 
-    public static void main(String[] args) {
+    private static class Registro implements Comparable<Registro> {
 
-    }
-/*TODO: ADAPTAR ESSA CLASSE AO CODIGO*/
+        private int id;
+        private String registro;
 
-    /**A CLASSE MULTIWAY FAZ O MERGE DE DOIS ARQUIVOS ORDENADOS ATRAVÉS DE UMA FILA DE PRIORIDADES
-     * NO CASO, IREMOS UTILIZAR A LISTA DE PRIORIDADES DISPONÍVEL EM "java.util.PriorityQueue".*/
+        Registro(String registro) {
 
-    /** PARA ESCRITA E LEITURA DOS ARQUIVOS PRETENDO UTILIZAR AS CLASSES "BinaryIn.java" e "BinaryOut.java */
+            this.id = separaId(registro);
+            this.registro = registro;
+        }
 
-    public class Multiway {
+        private static int separaId(String registro) {
 
-        // This class should not be instantiated.
-        private Multiway() { }
+            int id = 0;
 
-        // merge together the sorted input streams and write the sorted result to standard output
-        private static void merge(In[] streams) {
-            int n = streams.length;
-            IndexMinPQ<String> pq = new IndexMinPQ<String>(n);
-            for (int i = 0; i < n; i++)
-                if (!streams[i].isEmpty())
-                    pq.insert(i, streams[i].readString());
+            char[] mensagem = registro.toCharArray();
 
-            // Extract and print min and read next from its stream.
-            while (!pq.isEmpty()) {
-                StdOut.print(pq.minKey() + " ");
-                int i = pq.delMin();
-                if (!streams[i].isEmpty())
-                    pq.insert(i, streams[i].readString());
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < mensagem.length; i++) {
+
+                if (mensagem[i] != ';') {
+                    sb.append(mensagem[i]);
+                } else {
+                    id = Integer.parseInt(String.valueOf(sb));
+                    return id;
+                }
             }
-            StdOut.println();
+            return id;
         }
 
-        /**
-         *  Reads sorted text files specified as command-line arguments;
-         *  merges them together into a sorted output; and writes
-         *  the results to standard output.
-         *  Note: this client does not check that the input files are sorted.
-         *
-         * @param args the command-line arguments
-         */
-        public static void main(String[] args) {
-            int n = args.length;
-            In[] streams = new In[n];
-            for (int i = 0; i < n; i++)
-                streams[i] = new In(args[i]);
-            merge(streams);
+        //para que o coparable funcione, permitindo fazer a ordenação mais facilmente.
+        @Override
+        public int compareTo(OrdenacaoExterna.Registro o) {
+            return this.id - o.id;
         }
     }
 
+    public static void imprimir(Registro registro) {
 
-    /*=============================================================================*/
+        System.out.print("ID= ");
+        System.out.println(registro.id);
+        System.out.print("Registro= ");
+        System.out.println(registro.registro);
+    }
 
+    /**Metodo para escrever em arquivos conforme valor em string, nome do arquivo e numero do arquivo*/
+    private static void escrever(String valor, String name, int blocoCt) {
 
-    public static void ordenacaoExterna() {
-        /*TODO: PASSO 1:
-         *  - ABRIR O BANCO DE DADOS PARA LEITURA.
-         *  - CRIAR OS DOIS ARQUIVOS TEMPORARIOS ("tmp1" E "tmp2") ONDE OS REGISTROS ORDENADOS SERÃO GRAVADOS*/
+        boolean flag = false;
 
-        /*TODO: PASSO 2:
-        *  - CARREGAR OS N REGISTROS (CADA N REGISTROS CORRESPONDE A UM BLOCO) NA MEMÓRIA PRINCIPAL E ORDENA-LOS*/
+        StringBuilder nome = new StringBuilder(name);
+        nome.append(blocoCt);
+        nome.append(".tmp");
 
-        /*TODO: PASSO 3:
-         *  - OS BLOCOS ÍMPARES SERÃO GRAVADOS NO ARQUIVO TEMPORÁRIO 1
-         *  - OS BLOCOS PARES SERÃO GRAVADOS NO ARQUIVO TEMPORÁRIO 2*/
+        try {
+            File file = new File(String.valueOf(nome));
 
-        /*TODO: PASSOS 2 E 3 SERÃO REPETIDOS ATÉ QUE TODOS OS REGISTROS DO ARQUIVO PRINCIPAL SEJAM LIDOS.
-        *  FIM DA ETAPA DE DISTRIBUIÇÃO.
-        * OBS.: É NECESSÁRIO QUE O TAMANHO DOS BLOCOS FIQUE ARMAZENADO EM ALGUMA VARIÁVEL PARA UTILIZAÇÃO NAS ETAPAS POSTERIORES.*/
+            if (!file.exists()) {
+                file.createNewFile();
+                flag = true;
+            }
 
-        /*TODO: PASSO 4 (INICIO DA ETAPA DE INTERCALAÇÃO):
-        *   - OS ARQUIVOS TEMPORÁRIOS CRIADOS NAS ETAPAS ANTERIORES ("tmp1" E "tmp2") DEVERÃO SER ABERTOS COMO LEITURA (FONTES / FLUXOS DE ENTRADA)*/
+            FileWriter fw = new FileWriter(file, true);
+            BufferedWriter out = new BufferedWriter(fw);
 
-        /*TODO: PASSO 5:
-         *  - CRIAR OS DOIS ARQUIVOS TEMPORARIOS ( "tmp3" E "tmp4") ONDE OS SERÁ FEITA A INTERCALAÇÃO DOS ARQUIVOS ABERTOS NO PASSO ANTERIOR*/
+            if (!flag) {
+                out.newLine();
+            }
 
-        /*TODO: PASSO 6:
-        *   - COMPARAR tmp1[0] com tmp2[0]
-        *   - SE tmp1[0] < tmp2[0] = GRAVAR tmp1[0] EM tmp3[0]
-        *   - SE tmp1[0] > tmp2[0] = GRAVAR tmp2[0] EM tmp3[0]
-        *   - COMPARAR NOVAMENTE O REGISTRO QUE NÃO FOI GRAVADO COM O PRÓXIMO REGISTRO DO ARQUIVO TEMPORÁRIO QUE TEVE O REGISTRO GRAVADO
-        *   - REPETIR O PROCESSO ATÉ QUE O TOTAL DE REGISTROS LIDOS SEJA IGUAL AO TAMANHO DO BLOCO DE LEITURA
-        *   - O ULTIMO REGISTRO DO BLOCO DE LEITURA DEVERÁ SER GRAVADO DIRETO PARA EVITAR SER COMPARADO COM O PRIMEIRO REGISTRO DO PRÓXIMO BLOCO DE LEITURA*/
+            out.write(valor);
+            out.flush();
+            out.close();
 
-        /*TODO: PASSO 7
-        *  - OS BLOCOS ÍMPARES SERÃO GRAVADOS NO ARQUIVO TEMPORÁRIO 3
-        *  - OS BLOCOS PARES SERÃO GRAVADOS NO ARQUIVO TEMPORÁRIO 4*/
+        } catch (IOException ioe) {
 
-        /*TODO: PASSO 8
-        *   - REPETIR OS PASSOS 4 A 7 ATÉ QUE TODOS OS REGISTROS DOS ARQUIVOS TEMPORÁRIOS "tmp1" E "tmp2" TENHAM SIDO INTERCALADOS.
-        * */
-
-        /*TODO: PASSO 9
-        *  - REPETIR O PROCESSO DE INTERCALAÇÃO ATÉ QUE RESTE SOMENTE UM ARQUIVO ORDENADO CONTENDO TODOS OS REGISTROS
-        *  - A CADA NOVA INTERCALAÇÃO OS ARQUIVOS TEMPORÁRIOS USADOS PARA LEITURA DEVERÃO SER LIMPOS/ELIMINADOS
-        *  - A CADA ETAPA O NOSSO BLOCO DE LEITURA TERÁ SEU TAMANHO MODIFICADO SENDO O PADRÃO DE CRECIMENTO = A N*CAMINHOS
-        *   - COMO ESTAMOS UTILIZANDO 2 CAMINHOS E NOSSO BLOCO DE LEITURA INICIAL É IGUAL A 4, ESTE IRÁ APRESENTAR O SEGUINTE PADRÃO:
-        *           4 - 8 - 16 - 32 - 64 - ETC......*/
-
-        /*TODO: PASSO 10
-        *  - AO FINAL DO PROCESSO O ARQUIVO TEMPORARIO FINAL COM TODOS OS REGISTROS ORDENADOS DEVERÁ SER SALVO COMO "simpledb.db"*/
+            System.out.println("Exception occurred:");
+            ioe.printStackTrace();
+        }
 
     }
 
-}
+    /**metodo responsavel por realizar a abertura do simpledb.db e sua intercalação em dois arquivos de blocos ordenados.
+    *  Onde "n" corresponde ao tamanho do bloco*/
+    private static int etapaDistribuicao(int n) {
+
+        int blocoCt = 1, registroCt = 0, maxID=0;                                                                                 // Tamanho do bloco de leitura n registros, bloco de leitura, contador de registro
+        String file = "simpledb.db";                                                                    //Nome do arquivo
+
+        Registro bloco[] = new Registro[n];
+
+
+        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+            String line;
+
+            while ((line = br.readLine()) != null) {
+
+                Registro rg = new Registro(line);
+
+                bloco[registroCt] = rg;
+
+                registroCt++;
+                if (registroCt == n) {
+
+                    Arrays.sort(bloco);
+
+                    for (int c = 0; c < bloco.length; c++) {
+                        escrever(bloco[c].registro, "arq", blocoCt);
+                    }
+
+                    if (blocoCt == 1) {
+
+                        registroCt = 0;
+                        blocoCt++;
+
+                    } else if (blocoCt == 2) {
+
+                        blocoCt = 1;
+                        registroCt = 0;
+                    }
+                }
+            }
+            //para os casos em que o arquivo acaba antes de ter 4 registros no bloco
+            if (registroCt > 0 && registroCt < n && line == null) {
+
+
+                Registro blocob[] = new Registro[registroCt];
+
+                for (int c = 0; c < registroCt; c++) {
+                    blocob[c] = bloco[c];
+                }
+                Arrays.sort(blocob);
+
+                for (int c = 0; c < blocob.length; c++) {
+                    escrever(blocob[c].registro, "arq", blocoCt);
+                }
+                maxID = blocob[blocob.length - 1].id;
+            }else if (line == null) {
+                maxID = bloco[bloco.length - 1].id;
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        return maxID;
+    }
+
+    private static int etapaIntercalacao(int n) {
+        //etapa de intercalação:
+
+        int blocoID = 3; //define o id do bloco de gravação
+        int blocoCT = 0; // idefine o contador de itens do bloco de gravacao
+        int blocoM = n; // tamanho maximo do bloco de gravacao.
+
+        int contF1=0; //contador do total de itens gravados no arquivo 1 - utilizado para determinar se o processo deve ser repetido ou não.
+
+        int rg1CT=0, rg2CT=0;
+
+        //arquivos criados na etapa anterior a serem lidos e intercalados nessa etapa.
+        String file1 = "arq1.tmp";
+        String file2 = "arq2.tmp";
+
+        try (BufferedReader br1 = new BufferedReader(new FileReader(file1));
+             BufferedReader br2 = new BufferedReader(new FileReader(file2)))
+        {
+            String line1 = br1.readLine();
+            rg1CT++;
+            String line2 = br2.readLine();
+            rg2CT++;
+
+            Registro rg1 = new Registro(line1);
+            Registro rg2 = new Registro(line2);
+
+            while (line1!= null || line2!= null) {
+
+                if (rg1.id!=0 && rg1.id <= rg2.id || (rg2CT > n/2 && rg1CT <= n/2) || (line1 != null && line2 == null)) {
+
+                    escrever(rg1.registro, "arq", blocoID);
+                    blocoCT++;
+                    line1 = br1.readLine();
+                    if (line1!=null) {
+                        rg1 = new Registro(line1);
+                    }else{
+                        rg1 = new Registro("");
+                    }
+
+                    if (blocoID==3) {
+                    contF1++;
+                    }
+
+                } else if (rg2.id!=0 && rg1.id > rg2.id || (rg1CT > n/2 && rg2CT <= n/2) || (line2 != null && line1 == null)) {
+
+                    escrever(rg2.registro, "arq", blocoID);
+                    blocoCT++;
+                    line2 = br2.readLine();
+                    if (line2 != null) {
+                        rg2 = new Registro(line2);
+                    }else{
+                        rg2 = new Registro("");
+                    }
+                    if (blocoID==3) {
+                        contF1++;
+                    }
+                }
+
+                if (blocoCT == blocoM) {
+
+                    rg1CT = 0;
+                    rg2CT = 0;
+
+                    if (blocoID == 4) {
+                        blocoID = 3;
+                        blocoCT=0;
+                    } else {
+                        blocoCT=0;
+                        blocoID++;
+                    }
+
+                }
+            }
+        }  catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        File f1 = new File(file1);
+        f1.delete();
+        File f2 = new File(file2);
+        f2.delete();
+
+        try {
+            Path source = Paths.get("arq3.tmp");
+            Files.move(source,source.resolveSibling("arq1.tmp"));
+        }catch(Exception e) {
+            System.out.println(e);
+        }
+
+        try {
+            Path source = Paths.get("arq4.tmp");
+            Files.move(source,source.resolveSibling("arq2.tmp"));
+        }catch(Exception e) {
+            System.out.println(e);
+        }
+        return contF1;
+    }
+
+
+    public static void ordenacaoExterna() throws IOException {
+        int max = 0; // ID do ultimo registro ordenado / quantidade total de registros.
+        int n = 4; //Tamanho do bloco a ser lido ordenado e escrito em um arquivo temporario.
+        int itensOrdenados=0;
+
+        max = etapaDistribuicao(n);
+        while (itensOrdenados<max) {
+            n=n*2;
+            itensOrdenados= etapaIntercalacao(n);
+        }
+
+        try {
+            Path source = Paths.get("arq1.tmp");
+            Files.move(source,source.resolveSibling("simpledb_ordenado.db"));
+        }catch(Exception e) {
+            System.out.println(e);
+        }
+
+        File f1 = new File("arq1.tmp");
+        f1.delete();
+
+    }
+    }
