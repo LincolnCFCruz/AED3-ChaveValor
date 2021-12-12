@@ -1,3 +1,4 @@
+package base.simplebd;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -22,7 +23,6 @@ public class OrdenacaoExterna {
         }
 
         private static int separaId(String registro) {
-
             int id = 0;
 
             char[] mensagem = registro.toCharArray();
@@ -48,8 +48,8 @@ public class OrdenacaoExterna {
     }
 
     /**Metodo para escrever em arquivos conforme valor em string, nome do arquivo e numero do arquivo*/
-    private static void escrever(String valor, String name, int blocoCt) {
 
+    private static void escrever(String valor, String name, int blocoCt) {
         boolean flag = false;
 
         StringBuilder nome = new StringBuilder(name);
@@ -76,7 +76,6 @@ public class OrdenacaoExterna {
             out.close();
 
         } catch (IOException ioe) {
-
             System.out.println("Exception occurred:");
             ioe.printStackTrace();
         }
@@ -85,13 +84,12 @@ public class OrdenacaoExterna {
 
     /**metodo responsavel por realizar a abertura do simpledb.db e sua intercalação em dois arquivos de blocos ordenados.
     *  Onde "n" corresponde ao tamanho do bloco*/
-    private static int etapaDistribuicao(int n) {
 
-        int blocoCt = 1, registroCt = 0, maxID=0;                                                                                 // Tamanho do bloco de leitura n registros, bloco de leitura, contador de registro
-        String file = "simpledb.db";                                                                    //Nome do arquivo
+    private static int etapaDistribuicao(int n) {
+        int blocoCt = 1, registroCt = 0, maxID=0;                // Tamanho do bloco de leitura n registros, bloco de leitura, contador de registro
+        String file = "simpledb.db";                             //Nome do arquivo
 
         Registro bloco[] = new Registro[n];
-
 
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             String line;
@@ -192,7 +190,6 @@ public class OrdenacaoExterna {
                     }
 
                 } else if (rg2.id!=0 && rg1.id > rg2.id || (rg1CT > n/2 && rg2CT <= n/2) || (line2 != null && line1 == null)) {
-
                     escrever(rg2.registro, "arq", blocoID);
                     blocoCT++;
                     line2 = br2.readLine();
@@ -245,7 +242,6 @@ public class OrdenacaoExterna {
         }
         return contF1;
     }
-
 
     public static void ordenacaoExterna() throws IOException {
         int max = 0; // ID do ultimo registro ordenado / quantidade total de registros.

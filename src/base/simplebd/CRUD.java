@@ -3,14 +3,24 @@ package base.simplebd;
 import java.io.*;
 
 public class CRUD {
-    public static void insert (Integer sK, String value) {
-        selectionSort org = new selectionSort();
+    public static void insert (Integer sK, String value) throws IOException {
+        selectionSort org1 = new selectionSort();
+        OrdenacaoExterna org2 = new OrdenacaoExterna();
         File fArquivo = null;
         FileWriter fwArquivo = null;
         BufferedWriter bw = null;
         BufferedReader br =  null;
+        int operador=2;
 
-        org.lerArquivo(1); //O arquivo é organizado para verificação de index's que estão faltando no arquivo.
+        //O arquivo é organizado para verificação de index's que estão faltando no arquivo.
+        //Pode ser utilizado dois tipos de ordenação, sendo o primeiro o selection sort
+        //e o segundo a intercalação balanceada.
+
+        if(operador == 1){
+            org1.lerArquivo(1);
+        } else if (operador == 2){
+            org2.ordenacaoExterna();
+        }
 
         try {
             fArquivo = new File("simpledb.db");
@@ -76,7 +86,11 @@ public class CRUD {
                 bw.write("\n" + newContent);
             }
 
-            org.lerArquivo(1);
+            if(operador == 1){
+                org1.lerArquivo(1);
+            } else if (operador == 2){
+                org2.ordenacaoExterna();
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
