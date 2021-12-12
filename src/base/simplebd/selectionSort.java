@@ -31,7 +31,7 @@ public class selectionSort {
         try {
             bw = new BufferedWriter(new FileWriter("simpledb.db"));
 
-            if (op == 1) { //Crescente
+            if (op == 1) { //Crescente, a contagem serve para evitar linhas vazias dentro do arquivo.
                 for (int k = 0; k < arr.length; k++) {
                     if(count == 0){
                         bw.write(arr[k]);

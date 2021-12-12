@@ -10,7 +10,7 @@ public class CRUD {
         BufferedWriter bw = null;
         BufferedReader br =  null;
 
-        org.lerArquivo(1);
+        org.lerArquivo(1); //O arquivo é organizado para verificação de index's que estão faltando no arquivo.
 
         try {
             fArquivo = new File("simpledb.db");
@@ -32,7 +32,7 @@ public class CRUD {
             String sortKey = String.valueOf(sK);
             String line, newContent;
 
-            // Leitura inicial do arquivo para verificação dos valores já existentes, caso exista valores já existentes adicionar novo valor ao index,
+            // Leitura inicial do arquivo para verificação dos valores já existentes, caso exista valores já existentes o codigo ira adiciona novo valor ao index,
             // caso contrario index tera o valor inicial "1".
 
             while((line = br.readLine()) != null) {
