@@ -8,6 +8,8 @@ import java.util.Arrays;
 
 public class OrdenacaoExterna {
 
+
+    //Tipo de dado para Registro, facilita a ordenação e organização na hora de gravar no arquivo.
     private static class Registro implements Comparable<Registro> {
 
         private int id;
@@ -43,14 +45,6 @@ public class OrdenacaoExterna {
         public int compareTo(OrdenacaoExterna.Registro o) {
             return this.id - o.id;
         }
-    }
-
-    public static void imprimir(Registro registro) {
-
-        System.out.print("ID= ");
-        System.out.println(registro.id);
-        System.out.print("Registro= ");
-        System.out.println(registro.registro);
     }
 
     /**Metodo para escrever em arquivos conforme valor em string, nome do arquivo e numero do arquivo*/
