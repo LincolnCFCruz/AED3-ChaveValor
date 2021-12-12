@@ -231,14 +231,14 @@ public class OrdenacaoExterna {
             Path source = Paths.get("arq3.tmp");
             Files.move(source,source.resolveSibling("arq1.tmp"));
         }catch(Exception e) {
-            System.out.println(e);
+            //System.out.println(e);
         }
 
         try {
             Path source = Paths.get("arq4.tmp");
             Files.move(source,source.resolveSibling("arq2.tmp"));
         }catch(Exception e) {
-            System.out.println(e);
+            //System.out.println(e);
         }
         return contF1;
     }
@@ -254,14 +254,17 @@ public class OrdenacaoExterna {
             itensOrdenados= etapaIntercalacao(n);
         }
 
+        File f1 = new File("simpledb.db");
+        f1.delete();
+
         try {
             Path source = Paths.get("arq1.tmp");
-            Files.move(source,source.resolveSibling("simpledb_ordenado.db"));
+            Files.move(source,source.resolveSibling("simpledb.db"));
         }catch(Exception e) {
-            System.out.println(e);
+            //System.out.println(e);
         }
 
-        File f1 = new File("arq1.tmp");
+       f1 = new File("arq1.tmp");
         f1.delete();
 
     }

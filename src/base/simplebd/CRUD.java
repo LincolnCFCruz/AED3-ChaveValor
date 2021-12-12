@@ -2,10 +2,11 @@ package base.simplebd;
 
 import java.io.*;
 
+import static base.simplebd.OrdenacaoExterna.ordenacaoExterna;
+
 public class CRUD {
     public static void insert (Integer sK, String value) throws IOException {
         selectionSort org1 = new selectionSort();
-        OrdenacaoExterna org2 = new OrdenacaoExterna();
         File fArquivo = null;
         FileWriter fwArquivo = null;
         BufferedWriter bw = null;
@@ -19,7 +20,7 @@ public class CRUD {
         if(operador == 1){
             org1.lerArquivo(1);
         } else if (operador == 2){
-            org2.ordenacaoExterna();
+            ordenacaoExterna();
         }
 
         try {
@@ -84,12 +85,6 @@ public class CRUD {
 
             if (index != 1) {
                 bw.write("\n" + newContent);
-            }
-
-            if(operador == 1){
-                org1.lerArquivo(1);
-            } else if (operador == 2){
-                org2.ordenacaoExterna();
             }
 
         } catch (IOException e) {
