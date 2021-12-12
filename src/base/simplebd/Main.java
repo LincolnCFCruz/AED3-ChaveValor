@@ -8,20 +8,11 @@ import static base.simplebd.Lzw.*;
 
 
 public class Main {
-
-
-    public static void test() {
-    }
-
     public static void main(String[] args) throws IOException {
 
         HashExtensivel hash = new HashExtensivel();
         CRUD crud = new CRUD();
         selectionSort select = new selectionSort();
-
-        //test();
-
-
         if (args.length == 0 || args[0].equals("--help")) {
             System.out.println("simpledb [cmd]\n" +
                     "  --insert=<sort-key,value> \n      Insere um objeto no banco de dados.\n" +
